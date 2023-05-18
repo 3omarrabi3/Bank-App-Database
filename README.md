@@ -1,2 +1,2 @@
-# Bank-App-Database
-Database Project
+# Bank Application
+Database Project for FCAI-CU
