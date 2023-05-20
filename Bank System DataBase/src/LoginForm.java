@@ -96,7 +96,7 @@ public class LoginForm extends JDialog {
                 "Please,choose cancel",
                 JOptionPane.ERROR_MESSAGE);
         dispose();
-//        new CustomerForm(null);
+        new CustomersForm(null);
 
     }
 
