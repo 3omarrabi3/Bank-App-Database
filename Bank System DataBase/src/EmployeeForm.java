@@ -10,6 +10,8 @@ public class EmployeeForm extends JDialog {
     private JButton updateCustomerButton;
     private JButton showCustomersButton;
     private JButton LoansButton;
+    private JButton payButton;
+    private JButton pendingLoansButton;
 
     public EmployeeForm(JFrame parent)  // Constructor.
     {
@@ -32,7 +34,7 @@ public class EmployeeForm extends JDialog {
 
         updateCustomerButton.addActionListener(e -> {
 
-//            new UpdateCustomerForm(null);
+            new UpdateCustomerForm(null);
             dispose();
 
         });
@@ -45,7 +47,7 @@ public class EmployeeForm extends JDialog {
 
         LoansButton.addActionListener(e -> {
 
-//            new LoansForm(null);
+            new LoansForm(null);
             dispose();
 
         });
@@ -53,6 +55,20 @@ public class EmployeeForm extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Home(null);
+                dispose();
+            }
+        });
+        pendingLoansButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PendingLoansForm(null);
+                dispose();
+            }
+        });
+        payButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PayForm(null);
                 dispose();
             }
         });

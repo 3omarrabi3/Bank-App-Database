@@ -3,10 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddCustomerForm extends JDialog{
-    private JPanel AddCustomerPanel;
-    private JButton addCustomerButton;
-    private JButton cancelButton;
+public class CustomerInfoForm extends JDialog{
+    private JPanel CustomerInfoPanel;
     private javax.swing.JPanel JPanel;
     private JTextField tfFirstName;
     private JTextField tfEmail;
@@ -20,14 +18,14 @@ public class AddCustomerForm extends JDialog{
     private JTextField tfAccountType;
     private JTextField tfAccountNumber;
     private JTextField tfAccountBalance;
-    private JTextField tfSSN;
-
-    public AddCustomerForm(JFrame parent)  // Constructor.
+    private JButton addCustomerButton;
+    private JButton cancelButton;
+    public CustomerInfoForm(JFrame parent)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
-        setTitle("Add Customer");
-        setContentPane(AddCustomerPanel);
+        setTitle("Customer Info");
+        setContentPane(CustomerInfoPanel);
         setMinimumSize(new Dimension(820, 820));
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
