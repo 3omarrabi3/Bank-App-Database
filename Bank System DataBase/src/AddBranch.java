@@ -37,12 +37,13 @@ public class AddBranch extends JDialog
                 new AdminForm(null);
             }
         });
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AdminForm(null);
-                dispose();
-            }
+        cancelButton.addActionListener(e -> {
+            String bankName = tfBankName.getText();
+            String branchNumber = tfBranchNumber.getText();
+            String Country = tfCountry.getText();
+
+            new AdminForm(null);
+            dispose();
         });
     }
 }
