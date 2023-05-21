@@ -9,7 +9,9 @@ public class StartForm extends JDialog{
     private JList list1;
     private JPanel StartPanel;
 
-    public StartForm(JFrame parent)  // Constructor.
+    private int SSN;
+
+    public StartForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
@@ -21,14 +23,16 @@ public class StartForm extends JDialog{
         setVisible(true);
         setModal(true);
 
+        SSN = ssn;
+
         cancelButton.addActionListener(e -> {
-            new CustomersForm(null);
+            new CustomersForm(null,SSN);
             dispose();
         });
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CustomersForm(null);
+                new CustomersForm(null,SSN);
                 dispose();
             }
         });

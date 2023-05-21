@@ -9,7 +9,9 @@ public class RequestForm extends JDialog{
     private JPanel RequestPanel;
     private JButton requestButton;
 
-    public RequestForm(JFrame parent)  // Constructor.
+    private int SSN;
+
+    public RequestForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
@@ -20,15 +22,16 @@ public class RequestForm extends JDialog{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setModal(true);
+        SSN = ssn;
 
         cancelButton.addActionListener(e -> {
-            new CustomersForm(null);
+            new CustomersForm(null,SSN);
             dispose();
         });
         requestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CustomersForm(null);
+                new CustomersForm(null,SSN);
                 dispose();
             }
         });

@@ -8,7 +8,10 @@ public class CustomersForm extends JDialog{
     private JButton requestButton;
     private JButton startButton;
     private JButton LogOutButton;
-    public CustomersForm(JFrame parent)  // Constructor.
+
+    private int SSN;
+
+    public CustomersForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
@@ -19,17 +22,18 @@ public class CustomersForm extends JDialog{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setModal(true);
+        SSN =ssn;
 
         requestButton.addActionListener(e -> {
 
-            new RequestForm(null);
+            new RequestForm(null,SSN);
             dispose();
 
         });
 
         startButton.addActionListener(e -> {
 
-            new StartForm(null);
+            new StartForm(null,SSN);
             dispose();
 
         });

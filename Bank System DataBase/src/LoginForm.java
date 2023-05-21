@@ -50,7 +50,11 @@ public class LoginForm extends JDialog {
                     throw new RuntimeException(ex);
                 }
             } else {
-                checkLogin_Customer(email, password);
+                try {
+                    checkLogin_Customer(email, password);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -116,15 +120,35 @@ public class LoginForm extends JDialog {
     //__________________________________________________________________________________________________________________
 
     void checkLogin_Customer(String email, String Password)  // method to check the login when the customer is logged in.
-    {
-        // to be implemented
-        // gets the username and password and search for them in the database.
-        JOptionPane.showMessageDialog(LoginForm.this,
-                "Didn't implement yet",
-                "Please,choose cancel",
-                JOptionPane.ERROR_MESSAGE);
-        dispose();
-        new CustomersForm(null);
+       throws SQLException {
+        DataBase database = new DataBase();
+        Connection connection = database.getConnection();
+        Statement statement = connection.createStatement();
+        String query = "SELECT * FROM Customer WHERE Email = '" + email + "' AND password = '" + Password + "'";
+
+        ResultSet resultSet = statement.executeQuery(query);
+
+
+        if (resultSet.next()) {
+            int SSN =resultSet.getInt("SSN");
+            String Name = resultSet.getString("FName") + " " + resultSet.getString("LName");
+            JOptionPane.showMessageDialog(LoginForm.this,
+                    "Welcome, "+Name,
+                    "Successful Login!",
+                    JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+            new CustomersForm(null,SSN);
+        }
+        else {
+            JOptionPane.showMessageDialog(LoginForm.this,
+                    "Invalid Credentials",
+                    "Login Failed!",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        resultSet.close();
+        statement.close();
+        connection.close();
 
     }
 
@@ -164,7 +188,7 @@ public class LoginForm extends JDialog {
     }
 
     public static boolean checkEmail(String email) {
-        if (!email.matches(email)) {
+        if (!email.matches(emailRegex)) {
             JOptionPane.showMessageDialog(null,
                     "Please,Enter valid e-mail address",
                     "Invalid Email",
