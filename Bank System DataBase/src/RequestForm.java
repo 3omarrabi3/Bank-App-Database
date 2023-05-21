@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RequestForm extends JDialog{
-    private JTable LoansTable;
     private JButton cancelButton;
     private JPanel RequestPanel;
     private JButton requestButton;
+    private JComboBox comboBox1;
 
     private int SSN;
 
@@ -17,7 +17,7 @@ public class RequestForm extends JDialog{
         super(parent);
         setTitle("Request Loan");
         setContentPane(RequestPanel);
-        setMinimumSize(new Dimension(820, 820));
+        setMinimumSize(new Dimension(820, 420));
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
