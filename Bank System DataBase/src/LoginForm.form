@@ -41,10 +41,10 @@
             </constraints>
             <properties>
               <font name="Segoe Print" size="18" style="1"/>
-              <text value="UserName"/>
+              <text value="E-mail"/>
             </properties>
           </component>
-          <component id="f19a0" class="javax.swing.JTextField" binding="tfUserName">
+          <component id="f19a0" class="javax.swing.JTextField" binding="tfEmail">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="362" height="30"/>

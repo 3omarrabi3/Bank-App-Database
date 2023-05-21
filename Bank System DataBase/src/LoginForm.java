@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LoginForm extends JDialog {
-    private JTextField tfUserName;
+    private JTextField tfEmail;
     private JPasswordField pfPassword;
     private JButton loginButton;
     private JButton cancelButton;
@@ -38,7 +38,7 @@ public class LoginForm extends JDialog {
         //__________________________________________________________________________________________________________________
 
         loginButton.addActionListener(e -> {
-            String email = tfUserName.getText();
+            String email = tfEmail.getText();
             char[] passwordArr = pfPassword.getPassword();
             String password = new String(passwordArr);
             if (type.equals("Admin")) {
