@@ -68,28 +68,57 @@ public class DataBase {
                            String accountType, double accountBalance,
                            int branchNumber) throws SQLException {
 
-            String sql = "insert into Account values ("+accountNumber+","+ssn+",'"+accountType+"'," +
-                    " "+accountBalance+", "+branchNumber+");";
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sql);
+        String sql = "insert into Account values ("+accountNumber+","+ssn+",'"+accountType+"'," +
+                " "+accountBalance+", "+branchNumber+");";
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
 
 
 
     }
 
     public void addCustomer(int ssn, String firstName, String lastName, int phone,
-                             String street, String city, String country, int buildingNumber,
-                             String email, String password, int branchNumber,
-                             int bankCode) throws SQLException {
+                            String street, String city, String country, int buildingNumber,
+                            String email, String password, int branchNumber,
+                            int bankCode) throws SQLException {
 
-            String sql = "insert into Customer values("+ssn+",'"+firstName+"','"+lastName+"',"
-                    +phone+",'"+street+"','"+city+"','"+country+"',"+buildingNumber+",'"+email+"','"
-                    +password+"',"+branchNumber+","+bankCode+");";
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sql);
+        String sql = "insert into Customer values("+ssn+",'"+firstName+"','"+lastName+"',"
+                +phone+",'"+street+"','"+city+"','"+country+"',"+buildingNumber+",'"+email+"','"
+                +password+"',"+branchNumber+","+bankCode+");";
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
 
 
 
     }
+    public boolean addBranch(int branchNumber, int bankCode, String name, String street, String city, String country) throws SQLException {
+        String selectQuery = "SELECT * FROM Branch WHERE BranchNumber = " + branchNumber + " AND BankCode = " + bankCode;
+        Statement selectStatement = connection.createStatement();
+        ResultSet resultSet = selectStatement.executeQuery(selectQuery);
+
+        if (resultSet.next()) {
+            // Branch with the same branch number and bank code already exists
+            resultSet.close();
+            selectStatement.close();
+            return false;
+        } else {
+            String insertQuery = "INSERT INTO Branch (BranchNumber, BankCode, Name, Street, City, Country) VALUES ("
+                    + branchNumber + ", "
+                    + bankCode + ", '"
+                    + name + "', '"
+                    + street + "', '"
+                    + city + "', '"
+                    + country + "')";
+            Statement insertStatement = connection.createStatement();
+            int rowsAffected = insertStatement.executeUpdate(insertQuery);
+            insertStatement.close();
+
+            resultSet.close();
+            selectStatement.close();
+
+            return rowsAffected > 0;
+        }
+    }
+
 
 }

@@ -2,20 +2,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class AddBranch extends JDialog
 {
     private JPanel AddBranchPanel;
-    private JTextField tfBankName;
+    private JTextField tfBankCode;
     private JTextField tfStreet;
-    private JTextField tfBuildingNumber;
     private JTextField tfCountry;
     private JButton cancelButton;
     private JButton addBranchButton;
     private JTextField tfCity;
     private JTextField tfBranchNumber;
-    public AddBranch(JFrame parent)  // Constructor.
-    {
+    private JTextField tfBranchName;
+
+    public AddBranch(JFrame parent) {
         // Setting the attributes of the panel.
         super(parent);
         setTitle("Admin");
@@ -25,32 +29,53 @@ public class AddBranch extends JDialog
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setModal(true);
+
         addBranchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String bankName = tfBankName.getText();
-                String branchNumber = tfBranchNumber.getText();
-                String Country = tfCountry.getText();
-                String Street = tfStreet.getText();
-                String City = tfCity.getText();
-                String BuildingNumber = tfBuildingNumber.getText();
 
-                if(LoginForm.checkWords(bankName) &&
-                 LoginForm.checkWords(Country) &&
-                LoginForm.checkWords(City) &&
-                LoginForm.checkNumber(branchNumber) &&
-                LoginForm.checkNumber(BuildingNumber) )
-                {
-                    JOptionPane.showMessageDialog(AddBranch.this,
-                            "Branch has been Added successfully",
-                            "Successful Operation",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    // function to check if the Branch is already in the table to be added.
-                    dispose();
-                    new AdminForm(null);
+                String branchNumber = tfBranchNumber.getText();
+                String bankCode = tfBankCode.getText();
+                String branchName = tfBranchName.getText();
+                String country = tfCountry.getText();
+                String city = tfCity.getText();
+                String street = tfStreet.getText();
+
+                if (LoginForm.checkWords(branchName) &&
+                        LoginForm.checkWords(country) &&
+                        LoginForm.checkWords(city) &&
+                        LoginForm.checkNumber(branchNumber) &&
+                        LoginForm.checkNumber(bankCode)) {
+
+
+                        try {
+                            DataBase  dataBase = new DataBase();
+                            if(dataBase.addBranch(Integer.parseInt(branchNumber),Integer.parseInt(bankCode),branchName,street,city,country))
+                            {
+                                JOptionPane.showMessageDialog(AddBranch.this,
+                                        "Branch has been added successfully",
+                                        "Successful Operation",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                                dispose();
+                                new AdminForm(null);
+                            }
+                            else {
+                                JOptionPane.showMessageDialog(AddBranch.this,
+                                        "Failed to add branch",
+                                        "Operation Failed !!!",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                        catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+//                        }
+
                 }
-            }
-        });
+
+            }});
+
+
         cancelButton.addActionListener(e -> {
             new AdminForm(null);
             dispose();
