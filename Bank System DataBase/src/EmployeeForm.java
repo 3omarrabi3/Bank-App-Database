@@ -26,27 +26,23 @@ public class EmployeeForm extends JDialog {
         setModal(true);
 
         addCustomerButton.addActionListener(e -> {
-
             new AddCustomerForm(null);
             dispose();
 
         });
 
         updateCustomerButton.addActionListener(e -> {
-
             new UpdateCustomerForm(null);
             dispose();
 
         });
-        showCustomersButton.addActionListener(e -> {
 
+        // Show List of customers of the same bank.
+        showCustomersButton.addActionListener(e -> {
             new CustomersListForm(null);
             dispose();
-
         });
-
         LoansButton.addActionListener(e -> {
-
             new LoansForm(null);
             dispose();
 
