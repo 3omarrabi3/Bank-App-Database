@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class AddCustomerForm extends JDialog{
     private JPanel AddCustomerPanel;
@@ -39,18 +40,61 @@ public class AddCustomerForm extends JDialog{
         SSN =ssn;
 
         addCustomerButton.addActionListener(e -> {
+                if (LoginForm.checkWords(tfFirstName.getText()) &&
+                LoginForm.strongPassword(new String(pfPassword.getPassword())) &&
+                        LoginForm.checkWords(tfLastName.getText()) &&
+                        LoginForm.checkWords(tfCity.getText()) &&
+                        LoginForm.checkWords(tfCountry.getText()) &&
+                        LoginForm.checkNumber(tfSSN.getText()) &&
+                        LoginForm.checkNumber(tfPhone.getText()) &&
+                        LoginForm.checkEmail(tfEmail.getText()) &&
+                        LoginForm.checkNumber(tfBranchNumber.getText()) &&
+                        LoginForm.checkNumber(tfAccountNumber.getText()) &&
+                        LoginForm.checkNumber(tfBankCode.getText()) &&
+                        LoginForm.checkNumber(tfAccountBalance.getText())) {
 
-            new EmployeeForm(null,SSN);
-            dispose();
+                    int SSN = Integer.parseInt(tfSSN.getText());
+                    String firstName = tfFirstName.getText();
+                    String lastName = tfLastName.getText();
+                    int phone = Integer.parseInt(tfPhone.getText());
+                    String street = tfStreet.getText();
+                    String city = tfCity.getText();
+                    String country = tfCountry.getText();
+                    int buildingNumber = Integer.parseInt(tfBuildingNumber.getText());
+                    String email = tfEmail.getText();
+                    String password = new String(pfPassword.getPassword());
+                    int branchNumber = Integer.parseInt(tfBranchNumber.getText());
+                    int bankCode = Integer.parseInt(tfBankCode.getText());
+                    String AccountType = tfAccountType.getText();
+                    int AccountNumber = Integer.parseInt(tfAccountNumber.getText());
+                    double AccountBalance = Double.parseDouble(tfAccountBalance.getText());
+
+                    JOptionPane.showMessageDialog(AddCustomerForm.this,
+                            "Customer and his account has been Added successfully",
+                            "Successful Operation",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    new EmployeeForm(null, ssn);
+                    dispose();
+
+
+                    try {
+                        DataBase  dataBase = new DataBase();
+                        dataBase.addCustomer(SSN, firstName, lastName, phone,
+                                street, city, country, buildingNumber,
+                                email, password, branchNumber, bankCode);
+                        dataBase.addAccount(AccountNumber, SSN, AccountType, AccountBalance, branchNumber);
+                    }
+                    catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+            }
+
 
         });
 
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new EmployeeForm(null,SSN);
-                dispose();
-            }
+        cancelButton.addActionListener(e -> {
+            new EmployeeForm(null,ssn);
+            dispose();
         });
     }
 }

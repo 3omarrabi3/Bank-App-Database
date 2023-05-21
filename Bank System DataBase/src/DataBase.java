@@ -63,4 +63,33 @@ public class DataBase {
     {
         return connection;
     }
+
+    public void addAccount(int accountNumber, int ssn,
+                           String accountType, double accountBalance,
+                           int branchNumber) throws SQLException {
+
+            String sql = "insert into Account values ("+accountNumber+","+ssn+",'"+accountType+"'," +
+                    " "+accountBalance+", "+branchNumber+");";
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+
+
+
+    }
+
+    public void addCustomer(int ssn, String firstName, String lastName, int phone,
+                             String street, String city, String country, int buildingNumber,
+                             String email, String password, int branchNumber,
+                             int bankCode) throws SQLException {
+
+            String sql = "insert into Customer values("+ssn+",'"+firstName+"','"+lastName+"',"
+                    +phone+",'"+street+"','"+city+"','"+country+"',"+buildingNumber+",'"+email+"','"
+                    +password+"',"+branchNumber+","+bankCode+");";
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+
+
+
+    }
+
 }
