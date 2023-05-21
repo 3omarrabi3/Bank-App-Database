@@ -21,6 +21,8 @@ public class AddCustomerForm extends JDialog{
     private JTextField tfAccountNumber;
     private JTextField tfAccountBalance;
     private JTextField tfSSN;
+    private JTextField tfBranchNumber;
+    private JTextField tfBankCode;
     int SSN;
     public AddCustomerForm(JFrame parent,int ssn)  // Constructor.
     {

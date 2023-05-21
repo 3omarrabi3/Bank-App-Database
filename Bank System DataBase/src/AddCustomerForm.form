@@ -23,7 +23,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <grid id="9e002" binding="JPanel" layout-manager="GridLayoutManager" row-count="48" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="9e002" binding="JPanel" layout-manager="GridLayoutManager" row-count="52" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints/>
                 <properties/>
@@ -292,7 +292,7 @@
                   </component>
                   <component id="5cd46" class="javax.swing.JButton" binding="addCustomerButton">
                     <constraints>
-                      <grid row="45" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="49" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-16739895"/>
@@ -303,7 +303,7 @@
                   </component>
                   <component id="56975" class="javax.swing.JButton" binding="cancelButton" default-binding="true">
                     <constraints>
-                      <grid row="46" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="50" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-65536"/>
@@ -314,12 +314,12 @@
                   </component>
                   <vspacer id="4b22">
                     <constraints>
-                      <grid row="44" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                      <grid row="48" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                     </constraints>
                   </vspacer>
                   <vspacer id="9ce40">
                     <constraints>
-                      <grid row="47" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                      <grid row="51" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                     </constraints>
                   </vspacer>
                   <vspacer id="10a65">
@@ -422,6 +422,44 @@
                       <grid row="19" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                     </constraints>
                   </vspacer>
+                  <component id="4cd19" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="44" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe Print" size="18" style="1"/>
+                      <text value="Branch Number"/>
+                    </properties>
+                  </component>
+                  <component id="82466" class="javax.swing.JTextField" binding="tfBranchNumber">
+                    <constraints>
+                      <grid row="45" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe Print" size="18" style="1"/>
+                    </properties>
+                  </component>
+                  <component id="bdb8" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="46" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe Print" size="18" style="1"/>
+                      <text value="Bank Code"/>
+                    </properties>
+                  </component>
+                  <component id="51853" class="javax.swing.JTextField" binding="tfBankCode">
+                    <constraints>
+                      <grid row="47" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe Print" size="18" style="1"/>
+                    </properties>
+                  </component>
                 </children>
               </grid>
             </children>
