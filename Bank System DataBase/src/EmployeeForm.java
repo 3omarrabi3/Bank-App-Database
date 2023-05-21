@@ -12,8 +12,8 @@ public class EmployeeForm extends JDialog {
     private JButton LoansButton;
     private JButton payButton;
     private JButton pendingLoansButton;
-
-    public EmployeeForm(JFrame parent)  // Constructor.
+    private int SSN;
+    public EmployeeForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
@@ -25,48 +25,55 @@ public class EmployeeForm extends JDialog {
         setVisible(true);
         setModal(true);
 
+        SSN = ssn;
+
         addCustomerButton.addActionListener(e -> {
-            new AddCustomerForm(null);
             dispose();
+            new AddCustomerForm(null,SSN);
 
         });
 
         updateCustomerButton.addActionListener(e -> {
-            new UpdateCustomerForm(null);
             dispose();
+            new UpdateCustomerForm(null,SSN);
 
         });
 
         // Show List of customers of the same bank.
         showCustomersButton.addActionListener(e -> {
-            new CustomersListForm(null);
             dispose();
+            new CustomersListForm(null,SSN);
         });
         LoansButton.addActionListener(e -> {
-            new LoansForm(null);
             dispose();
+            new LoansForm(null,SSN);
 
         });
         LogOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Home(null);
                 dispose();
+                new Home(null);
             }
         });
         pendingLoansButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PendingLoansForm(null);
                 dispose();
+                new PendingLoansForm(null,SSN);
             }
         });
         payButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PayForm(null);
                 dispose();
+                new PayForm(null,SSN);
             }
         });
+    }
+
+    int getSSN()
+    {
+        return SSN;
     }
 }

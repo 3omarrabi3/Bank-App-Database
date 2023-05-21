@@ -5,7 +5,9 @@ public class PendingLoansForm extends JDialog{
     private JPanel PendingLoansPannel;
     private JTable PendingLoansTable;
     private JButton cancelButton;
-    public PendingLoansForm(JFrame parent)  // Constructor.
+
+    private int SSN;
+    public PendingLoansForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
@@ -17,8 +19,9 @@ public class PendingLoansForm extends JDialog{
         setVisible(true);
         setModal(true);
 
+        SSN = ssn;
         cancelButton.addActionListener(e -> {
-            new EmployeeForm(null);
+            new EmployeeForm(null,SSN);
             dispose();
         });
     }

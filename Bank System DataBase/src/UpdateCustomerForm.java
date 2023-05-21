@@ -7,7 +7,8 @@ public class UpdateCustomerForm extends JDialog{
     private JButton getCustomerButton;
     private JButton cancelButton;
 
-    public UpdateCustomerForm(JFrame parent)     // constructor that sets the suitable attributes for the form.
+    private int SSN;
+    public UpdateCustomerForm(JFrame parent, int ssn)     // constructor that sets the suitable attributes for the form.
     {
         super(parent);
         setTitle("Login");
@@ -18,18 +19,19 @@ public class UpdateCustomerForm extends JDialog{
         setVisible(true);
         setModal(true);
 
+        SSN = ssn;
         //__________________________________________________________________________________________________________________
 
         getCustomerButton.addActionListener(e -> {
-            String SSN = tfSSN.getText();
-            new CustomerInfoForm (null);
+            int customerSSN =Integer.parseInt( tfSSN.getText());
+            new CustomerInfoForm (null,SSN,customerSSN);
             dispose();
         });
 
         // __________________________________________________________________________________________________________________
 
         cancelButton.addActionListener(e -> {
-            new EmployeeForm(null);
+            new EmployeeForm(null,SSN);
             dispose();
         });
     }

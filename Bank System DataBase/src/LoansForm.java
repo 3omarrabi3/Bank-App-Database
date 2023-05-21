@@ -8,7 +8,8 @@ public class LoansForm extends JDialog{
     private JTable LoansTable;
     private JButton cancelButton;
 
-    public LoansForm(JFrame parent)  // Constructor.
+    private int SSN;
+    public LoansForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
@@ -20,8 +21,10 @@ public class LoansForm extends JDialog{
         setVisible(true);
         setModal(true);
 
+        SSN = ssn;
+
         cancelButton.addActionListener(e -> {
-            new EmployeeForm(null);
+            new EmployeeForm(null,SSN);
             dispose();
         });
     }

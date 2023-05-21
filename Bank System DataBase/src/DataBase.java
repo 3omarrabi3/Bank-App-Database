@@ -59,4 +59,8 @@ public class DataBase {
 
         getBanksInfo(bankId, customer) ;
     }
+    public Connection getConnection()
+    {
+        return connection;
+    }
 }

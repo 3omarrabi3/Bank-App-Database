@@ -5,7 +5,8 @@ public class PayForm extends JDialog{
     private JPanel PayPanel;
     private JTable PayTable;
     private JButton cancelButton;
-    public PayForm(JFrame parent)  // Constructor.
+    int SSN;
+    public PayForm(JFrame parent , int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
@@ -17,8 +18,9 @@ public class PayForm extends JDialog{
         setVisible(true);
         setModal(true);
 
+        SSN = ssn;
         cancelButton.addActionListener(e -> {
-            new EmployeeForm(null);
+            new EmployeeForm(null,SSN);
             dispose();
         });
     }

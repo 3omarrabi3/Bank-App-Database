@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class LoginForm extends JDialog {
     private JTextField tfUserName;
@@ -34,15 +38,19 @@ public class LoginForm extends JDialog {
         //__________________________________________________________________________________________________________________
 
         loginButton.addActionListener(e -> {
-            String userName = tfUserName.getText();
+            String email = tfUserName.getText();
             char[] passwordArr = pfPassword.getPassword();
             String password = new String(passwordArr);
             if (type.equals("Admin")) {
-                checkLogin_Admin(userName, password);
+                checkLogin_Admin(email, password);
             } else if (type.equals("Employee")) {
-                checkLogin_Employee(userName, password);
+                try {
+                    checkLogin_Employee(email, password);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             } else {
-                checkLogin_Customer(userName, password);
+                checkLogin_Customer(email, password);
             }
         });
 
@@ -56,9 +64,9 @@ public class LoginForm extends JDialog {
 
     //__________________________________________________________________________________________________________________
 
-    void checkLogin_Admin(String UserName, String Password) // method to check the login when the admin is logged in.
+    void checkLogin_Admin(String email, String Password) // method to check the login when the admin is logged in.
     {
-        if (UserName.equals("Admin") && Password.equals("Admin")) {
+        if (email.equals("Admin") && Password.equals("Admin")) {
             new AdminForm(null);
             dispose();
         } else {
@@ -72,22 +80,42 @@ public class LoginForm extends JDialog {
 
     //__________________________________________________________________________________________________________________
 
-    void checkLogin_Employee(String UserName, String Password)  // method to check the login when the employee is logged in.
-    {
-        // to be implemented
-        // gets the username and password and search for them in the database.
-        JOptionPane.showMessageDialog(LoginForm.this,
-                "Didn't implement yet",
-                "Please,choose cancel",
-                JOptionPane.ERROR_MESSAGE);
-        dispose();
-        new EmployeeForm(null);
+    void checkLogin_Employee(String email, String Password)  // method to check the login when the employee is logged in.
+     throws SQLException {
+        DataBase database = new DataBase();
+         Connection connection = database.getConnection();
+         Statement statement = connection.createStatement();
+         String query = "SELECT * FROM Employee WHERE Email = '" + email + "' AND password = '" + Password + "'";
+
+         ResultSet resultSet = statement.executeQuery(query);
+
+
+         if (resultSet.next()) {
+             int SNN =resultSet.getInt("SNN");
+             String Name = resultSet.getString("FName") + " " + resultSet.getString("LName");
+             JOptionPane.showMessageDialog(LoginForm.this,
+                     "Welcome, "+Name,
+                     "Successful Login!",
+                     JOptionPane.INFORMATION_MESSAGE);
+             dispose();
+             new EmployeeForm(null,SNN);
+         }
+         else {
+             JOptionPane.showMessageDialog(LoginForm.this,
+                     "Invalid Credentials",
+                     "Login Failed!",
+                     JOptionPane.ERROR_MESSAGE);
+         }
+
+         resultSet.close();
+         statement.close();
+         connection.close();
 
     }
 
     //__________________________________________________________________________________________________________________
 
-    void checkLogin_Customer(String UserName, String Password)  // method to check the login when the customer is logged in.
+    void checkLogin_Customer(String email, String Password)  // method to check the login when the customer is logged in.
     {
         // to be implemented
         // gets the username and password and search for them in the database.

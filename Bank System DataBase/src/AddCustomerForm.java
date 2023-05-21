@@ -21,8 +21,8 @@ public class AddCustomerForm extends JDialog{
     private JTextField tfAccountNumber;
     private JTextField tfAccountBalance;
     private JTextField tfSSN;
-
-    public AddCustomerForm(JFrame parent)  // Constructor.
+    int SSN;
+    public AddCustomerForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
@@ -34,9 +34,11 @@ public class AddCustomerForm extends JDialog{
         setVisible(true);
         setModal(true);
 
+        SSN =ssn;
+
         addCustomerButton.addActionListener(e -> {
 
-            new EmployeeForm(null);
+            new EmployeeForm(null,SSN);
             dispose();
 
         });
@@ -44,7 +46,7 @@ public class AddCustomerForm extends JDialog{
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EmployeeForm(null);
+                new EmployeeForm(null,SSN);
                 dispose();
             }
         });

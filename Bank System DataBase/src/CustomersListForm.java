@@ -13,7 +13,9 @@ public class CustomersListForm extends JDialog {
     private JTable table1;
     private JButton cancelButton;
 
-    public CustomersListForm(JFrame parent) // Constructor.
+    int SNN;
+
+    public CustomersListForm(JFrame parent , int snn) // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
@@ -25,6 +27,7 @@ public class CustomersListForm extends JDialog {
         setVisible(true);
         setModal(true);
 
+        SNN = snn;
         try {
             this.showList();
         }
@@ -35,8 +38,8 @@ public class CustomersListForm extends JDialog {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new EmployeeForm(null);
-               dispose();
+                new EmployeeForm(null,SNN);
+                dispose();
             }
         });
     }
@@ -52,7 +55,7 @@ public class CustomersListForm extends JDialog {
     private void createCustomerTable(List<List<String>> list) {
         // Declare the Columns of header
         String[] columns = {"SSN", "FName", "LName", "Phone", "Country", "City", "Street",
-        "BuildingNumber", "Email", "Password", "BranchName", "BankName"} ;
+                "BuildingNumber", "Email", "Password", "BranchName", "BankName"} ;
 
         // Declare the data
         String[][] rows = new String[list.size()][columns.length] ;
