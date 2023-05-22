@@ -209,5 +209,12 @@ public class DataBase {
 
 
     }
+
+    public void addBank(int code,String name,String Street,String City,String Country) throws SQLException {
+        String sql="INSERT INTO Bank(Code,Name,Street,City,Country) " +
+                "VALUES("+code+",'"+name+"','"+Street+"','"+City+"','"+Country+"');";
+        Statement statement=connection.createStatement();
+        statement.executeUpdate(sql);
+    }
 }
 
