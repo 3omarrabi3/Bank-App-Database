@@ -1,68 +1,66 @@
-import javax.swing.*;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 public class DataBase {
-    Connection connection;
-
+    Connection connection ;
     public DataBase() throws SQLException {
-        String currentDir = java.lang.System.getProperty("user.dir");
-        String url = "jdbc:sqlite:" + currentDir + "\\identifier.sqlite";
+        String currentDir=java.lang.System.getProperty("user.dir");
+        String url="jdbc:sqlite:"+currentDir+"\\identifier.sqlite";
         connection = DriverManager.getConnection(url);
     }
 
     public List<List<String>> showList() throws SQLException {
-        String sql = "Select * from CUSTOMER;";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
-        List<List<String>> list = new LinkedList<>();
+        String sql = "Select * from CUSTOMER;" ;
+        Statement statement = connection.createStatement() ;
+        ResultSet resultSet = statement.executeQuery(sql) ;
+        List<List<String>> list = new LinkedList<>() ;
 
-        while (resultSet.next()) {
+        while (resultSet.next()){
             List<String> customer = new LinkedList<>();
 
-            customer.add(Integer.toString(resultSet.getInt("SSN")));
-            customer.add(resultSet.getString("FName"));
-            customer.add(resultSet.getString("LName"));
-            customer.add(resultSet.getString("Phone"));
-            customer.add(resultSet.getString("Country"));
-            customer.add(resultSet.getString("City"));
-            customer.add(resultSet.getString("Street"));
-            customer.add(Integer.toString(resultSet.getInt("BuildingNumber")));
-            customer.add(resultSet.getString("Email"));
-            customer.add(resultSet.getString("Password"));
+            customer.add(Integer.toString(resultSet.getInt("SSN"))) ;
+            customer.add(resultSet.getString("FName")) ;
+            customer.add(resultSet.getString("LName")) ;
+            customer.add(resultSet.getString("Phone")) ;
+            customer.add(resultSet.getString("Country")) ;
+            customer.add(resultSet.getString("City")) ;
+            customer.add(resultSet.getString("Street")) ;
+            customer.add(Integer.toString(resultSet.getInt("BuildingNumber"))) ;
+            customer.add(resultSet.getString("Email")) ;
+            customer.add(resultSet.getString("Password")) ;
 
             this.getBranchesInfo(resultSet.getInt("BankCode"),
                     resultSet.getInt("BranchNumber"),
-                    customer);
+                    customer) ;
 
-            list.add(customer);
+            list.add(customer) ;
         }
 
-        return list;
+        return list ;
     }
 
     private void getBanksInfo(int bankId, List<String> customer) throws SQLException {
         String sql = "Select * from Bank where Code =" + bankId + ";";
-        Statement statement = connection.createStatement();
+        Statement statement = connection.createStatement() ;
 
         ResultSet resultSet = statement.executeQuery(sql);
         customer.add(resultSet.getString("Name"));
     }
 
     private void getBranchesInfo(int bankCode, int Id, List<String> customer) throws SQLException {
-        String sql = "Select * from Branch where BranchNumber =" + Id + " and BankCode = " + bankCode + ";";
-        Statement statement = connection.createStatement();
+        String sql = "Select * from Branch where BranchNumber ="+ Id + " and BankCode = " + bankCode + ";";
+        Statement statement = connection.createStatement() ;
 
         ResultSet resultSet = statement.executeQuery(sql);
-        int bankId = 0;
-        bankId = resultSet.getInt("BankCode");
+        int bankId = 0 ;
+        bankId = resultSet.getInt("BankCode") ;
         customer.add(resultSet.getString("Name"));
 
-        getBanksInfo(bankId, customer);
+        getBanksInfo(bankId, customer) ;
     }
-
-    public Connection getConnection() {
+    public Connection getConnection()
+    {
         return connection;
     }
 
@@ -70,15 +68,11 @@ public class DataBase {
                            String accountType, double accountBalance,
                            int branchNumber, int bankCode) throws SQLException {
 
-<<<<<<< HEAD
         String sql = "insert into Account values ("+accountNumber+","+branchNumber+","+bankCode+"," +
                 " "+ssn+", "+accountBalance+", '"+accountType+"' );";
-=======
-        String sql = "insert into Account values (" + accountNumber + "," + ssn + ",'" + accountType + "'," +
-                " " + accountBalance + ", " + branchNumber + ");";
->>>>>>> 919254ec98eeed52195f33fb4411defd430b1fca
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
+
 
 
     }
@@ -88,15 +82,15 @@ public class DataBase {
                             String email, String password, int branchNumber,
                             int bankCode) throws SQLException {
 
-        String sql = "insert into Customer values(" + ssn + ",'" + firstName + "','" + lastName + "',"
-                + phone + ",'" + street + "','" + city + "','" + country + "'," + buildingNumber + ",'" + email + "','"
-                + password + "'," + branchNumber + "," + bankCode + ");";
+        String sql = "insert into Customer values("+ssn+",'"+firstName+"','"+lastName+"',"
+                +phone+",'"+street+"','"+city+"','"+country+"',"+buildingNumber+",'"+email+"','"
+                +password+"',"+branchNumber+","+bankCode+");";
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
 
 
-    }
 
+    }
     public boolean addBranch(int branchNumber, int bankCode, String name, String street, String city, String country) throws SQLException {
         String selectQuery = "SELECT * FROM Branch WHERE BranchNumber = " + branchNumber + " AND BankCode = " + bankCode;
         Statement selectStatement = connection.createStatement();
@@ -126,27 +120,5 @@ public class DataBase {
         }
     }
 
-    public boolean Login(String email, String password, String Table)
-        throws SQLException {
-        DataBase database = new DataBase();
-        Connection connection = database.getConnection();
-        Statement statement = connection.createStatement();
-        String query = "SELECT * FROM " + Table + " WHERE Email = '" + email + "' AND password = '" + password + "'";
 
-        ResultSet resultSet = statement.executeQuery(query);
-
-
-        if (resultSet.next()) {
-            int SSN = resultSet.getInt("SSN");
-            String Name = resultSet.getString("FName") + " " + resultSet.getString("LName");
-            JOptionPane.showMessageDialog(null,
-                    "Welcome, "+Name,
-                    "Successful Login!",
-                    JOptionPane.INFORMATION_MESSAGE);
-            new EmployeeForm(null, SSN);
-            return true;
-        }
-        return false;
-    }
 }
-
