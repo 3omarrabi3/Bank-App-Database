@@ -41,21 +41,19 @@ public class LoginForm extends JDialog {
             String email = tfEmail.getText();
             char[] passwordArr = pfPassword.getPassword();
             String password = new String(passwordArr);
+
             if (type.equals("Admin")) {
                 checkLogin_Admin(email, password);
-            } else if (type.equals("Employee")) {
-                try {
-                    checkLogin_Employee(email, password);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-            } else {
-                try {
-                    checkLogin_Customer(email, password);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
             }
+
+            else if (type.equals("Employee")) {
+                checkLogin(email, password,"Employee");
+            }
+
+            else {
+                    checkLogin(email, password,"Customer");
+            }
+
         });
 
         // __________________________________________________________________________________________________________________
@@ -84,6 +82,7 @@ public class LoginForm extends JDialog {
 
     //__________________________________________________________________________________________________________________
 
+<<<<<<< HEAD
     void checkLogin_Employee(String email, String Password)  // method to check the login when the employee is logged in.
      throws SQLException {
          DataBase database = new DataBase();
@@ -115,42 +114,26 @@ public class LoginForm extends JDialog {
          statement.close();
          connection.close();
 
+=======
+    void checkLogin(String email, String Password,String Table)  // method to check the login when the employee is logged in.
+    {
+        try {
+            DataBase dataBase = new DataBase();
+            if (dataBase.Login(email, Password, Table)) {
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(LoginForm.this,
+                        "Invalid Credentials",
+                        "Login Failed!",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+>>>>>>> 919254ec98eeed52195f33fb4411defd430b1fca
     }
 
     //__________________________________________________________________________________________________________________
-
-    void checkLogin_Customer(String email, String Password)  // method to check the login when the customer is logged in.
-       throws SQLException {
-        DataBase database = new DataBase();
-        Connection connection = database.getConnection();
-        Statement statement = connection.createStatement();
-        String query = "SELECT * FROM Customer WHERE Email = '" + email + "' AND password = '" + Password + "'";
-
-        ResultSet resultSet = statement.executeQuery(query);
-
-
-        if (resultSet.next()) {
-            int SSN =resultSet.getInt("SSN");
-            String Name = resultSet.getString("FName") + " " + resultSet.getString("LName");
-            JOptionPane.showMessageDialog(LoginForm.this,
-                    "Welcome, "+Name,
-                    "Successful Login!",
-                    JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-            new CustomersForm(null,SSN);
-        }
-        else {
-            JOptionPane.showMessageDialog(LoginForm.this,
-                    "Invalid Credentials",
-                    "Login Failed!",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-
-        resultSet.close();
-        statement.close();
-        connection.close();
-
-    }
 
     //__________________________________________________________________________________________________________________
 
