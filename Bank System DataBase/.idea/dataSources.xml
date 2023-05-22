@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="identifier" uuid="330df7e3-4abf-437b-95e6-79185352cf2e">
-      <driver-ref>6b3e2f7e-54e4-434d-ace5-e972960ccbe9</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\dell\Downloads\Bank System DataBase\identifier.sqlite</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/sqlite-jdbc-3.40.1.jar</url>
-        </library>
-      </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="identifier [2]" uuid="d033e0d8-0978-4fd0-bc37-bea2046fb0a9">
+    <data-source source="LOCAL" name="identifier [4]" uuid="6c2ad99b-67ee-4e49-b031-b8606881b7e1">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:G:\Second Semester\Data Base\6.ASS\2. Working on it\New folder\Bank-App-Database\Bank System DataBase\identifier.sqlite</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/org/xerial/sqlite-jdbc/3.40.1.0/sqlite-jdbc-3.40.1.0.jar</url>
-        </library>
-      </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="identifier [3]" uuid="474d183e-37de-425b-b296-2d9da21e35dc">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:G:\Second Semester\Data Base\6.ASS\2. Working on it\New folder (2)\Bank-App-Database\Bank System DataBase\identifier.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:G:\Second Semester\Data Base\6.ASS\2. Working on it\New folder (3)\Bank-App-Database\Bank System DataBase\identifier.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

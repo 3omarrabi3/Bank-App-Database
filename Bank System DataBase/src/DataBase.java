@@ -234,5 +234,50 @@ public class DataBase {
     }
 
 
+
+
+    public List<List<String>> getLoans(int ss) throws SQLException {
+        String selectQuery = "select Loan.LoanNumber,Loan.BranchNumber ,Loan.BankCode\n" +
+                "     , Loan.LoanAmount, Loan.LoanType, Employee.SSN\n" +
+                "     , Employee.FName, Employee.LName\n" +
+                "from Loan , Employee\n" +
+                "where Loan.BranchNumber = Employee.BranchNumber\n" +
+                "and Loan.BankCode = Employee.BankCode and Employee.SSN =" +ss+ " ;";
+
+        Statement selectStatement = connection.createStatement();
+        ResultSet resultSet = selectStatement.executeQuery(selectQuery);
+        List<List<String>> list = new LinkedList<>();
+
+        while (resultSet.next()){
+            List<String> loan = new LinkedList<>();
+            loan.add(resultSet.getString("LoanNumber"));
+            loan.add(resultSet.getString("BranchNumber"));
+            loan.add(resultSet.getString("BankCode"));
+            loan.add(resultSet.getString("LoanAmount"));
+            loan.add(resultSet.getString("LoanType"));
+            loan.add(resultSet.getString("SSN"));
+            loan.add(resultSet.getString("FName"));
+            loan.add(resultSet.getString("LName"));
+
+
+            list.add(loan);
+
+        }
+        resultSet.close();
+        selectStatement.close();
+        return list;
+
+    }
+
+    public static void main(String[] args) throws SQLException {
+        DataBase database = new DataBase();
+        Connection connection = database.getConnection();
+        Statement statement = connection.createStatement();
+        database.getLoans(112);
+
+
+    }
+
+
 }
 

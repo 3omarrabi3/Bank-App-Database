@@ -41,7 +41,7 @@ public class AddCustomerForm extends JDialog{
 
         addCustomerButton.addActionListener(e -> {
                 if (LoginForm.checkWords(tfFirstName.getText()) &&
-                LoginForm.strongPassword(new String(pfPassword.getPassword())) &&
+                LoginForm.checkWords(new String(pfPassword.getPassword())) &&
                         LoginForm.checkWords(tfLastName.getText()) &&
                         LoginForm.checkWords(tfCity.getText()) &&
                         LoginForm.checkWords(tfCountry.getText()) &&
