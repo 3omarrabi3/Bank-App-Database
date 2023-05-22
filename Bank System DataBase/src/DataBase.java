@@ -43,6 +43,29 @@ public class DataBase {
 
         return list;
     }
+    public List<List<String>> showListPendingLoansTable(int ssn) throws SQLException {
+        String sql = "Select LoanRequests.CustomerSSN, LoanRequests.LoanNumber, LoanRequests.Status\n" +
+                "from LoanRequests ,Loan where LoanRequests.LoanNumber = Loan.LoanNumber\n" +
+                "and Status = 'Pending' and BranchNumber = (select BranchNumber from Employee\n" +
+                "                                                               where SSN = "+ssn+")\n" +
+                "and BankCode = (select BankCode from Employee where "+ssn+");";
+
+        Statement statement = connection.createStatement() ;
+        ResultSet resultSet = statement.executeQuery(sql) ;
+        List<List<String>> list = new LinkedList<>() ;
+
+        while (resultSet.next()){
+            List<String> LoanRequests = new LinkedList<>();
+            LoanRequests.add(Integer.toString(resultSet.getInt("CustomerSSN")));
+            LoanRequests.add(Integer.toString(resultSet.getInt("LoanNumber"))) ;
+            LoanRequests.add(resultSet.getString("Status")) ;
+
+            list.add(LoanRequests) ;
+        }
+        connection.close();
+        statement.close();
+        return list ;
+    }
 
     private void getBanksInfo(int bankId, List<String> customer) throws SQLException {
         String sql = "Select * from Bank where Code =" + bankId + ";";
@@ -128,6 +151,8 @@ public class DataBase {
 
             return rowsAffected > 0;
         }
+
+
     }
 
     public boolean Login(String email, String password, String Table)

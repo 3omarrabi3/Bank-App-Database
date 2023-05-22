@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="identifier [4]" uuid="6c2ad99b-67ee-4e49-b031-b8606881b7e1">
-      <driver-ref>acbd6349-38b2-464f-982f-c603d567e4e8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:G:\Second Semester\Data Base\6.ASS\2. Working on it\New folder (3)\Bank-App-Database\Bank System DataBase\identifier.sqlite</jdbc-url>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/org/xerial/sqlite-jdbc/3.40.1.0/sqlite-jdbc-3.40.1.0.jar</url>
-        </library>
-      </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="identifier" uuid="e7f5684e-5442-45ba-bee9-681b68462850">
-      <driver-ref>acbd6349-38b2-464f-982f-c603d567e4e8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:G:\Second Semester\Data Base\6.ASS\2. Working on it\New folder (4)\Bank-App-Database\Bank System DataBase\identifier.sqlite</jdbc-url>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/org/xerial/sqlite-jdbc/3.40.1.0/sqlite-jdbc-3.40.1.0.jar</url>
-        </library>
-      </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="identifier [2]" uuid="24e87ebe-0cb3-4ce7-977d-3e933a5b60ea">
+    <data-source source="LOCAL" name="identifier" uuid="141dc479-ef2d-4f2c-b1fc-7137928577b6">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\moham\Desktop\Database Project\Bank-App-Database\Bank System DataBase\identifier.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\DELL\Desktop\git\Bank-App-Database\Bank System DataBase\identifier.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/org/xerial/sqlite-jdbc/3.40.1.0/sqlite-jdbc-3.40.1.0.jar</url>
+        </library>
         <library>
           <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/sqlite-jdbc-3.40.1.jar</url>
         </library>
