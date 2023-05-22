@@ -14,6 +14,7 @@ public class LoginForm extends JDialog {
     private final String type;
     private static String phoneNumberRegex = "^01\\d{8}$";
     private static String numbersRegex = "^[0-9]+$";
+    private static String doubleRegex = "^[-+]?\\d*\\.?\\d+$";
     private static String nameRegex = "^[A-Za-z\\s]+$";
     private static String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
@@ -96,6 +97,17 @@ public class LoginForm extends JDialog {
         }
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+    public static boolean checkDouble(String Amount) {
+        if (!Amount.matches(doubleRegex)) {
+            JOptionPane.showMessageDialog(null,
+                    "Please,Enter valid Amount",
+                    "Invalid input for Amount",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
     //__________________________________________________________________________________________________________________
 
     public static boolean strongPassword(String password) {

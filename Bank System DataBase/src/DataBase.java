@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,37 +13,46 @@ public class DataBase {
         connection = DriverManager.getConnection(url);
     }
 
-    public List<List<String>> showList() throws SQLException {
-        String sql = "Select * from CUSTOMER;";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
-        List<List<String>> list = new LinkedList<>();
+    public List<List<String>> showList(int employeeSSN) throws SQLException {
+        String sql = "SELECT DISTINCT\n" +
+                "    C.SSN, C.FName, C.LName, C.Phone, C.Email, C.Password, C.Country,\n" +
+                "    C.City, C.Street, C.BuildingNumber, B.Name AS BranchName, BN.Name AS BankName\n" +
+                "FROM\n" +
+                "    CUSTOMER AS C\n" +
+                "        JOIN Employee AS E ON C.BranchNumber = E.BranchNumber AND C.BankCode = E.BankCode\n" +
+                "        JOIN Branch AS B ON C.BranchNumber = B.BranchNumber\n" +
+                "        JOIN Bank AS BN ON C.BankCode = BN.Code\n" +
+                "WHERE\n" +
+                "        E.SSN = " + employeeSSN + ";" ;
 
-        while (resultSet.next()) {
+        Statement statement = connection.createStatement() ;
+        ResultSet resultSet = statement.executeQuery(sql) ;
+        List<List<String>> list = new LinkedList<>() ;
+
+        while (resultSet.next()){
             List<String> customer = new LinkedList<>();
 
-            customer.add(Integer.toString(resultSet.getInt("SSN")));
-            customer.add(resultSet.getString("FName"));
-            customer.add(resultSet.getString("LName"));
-            customer.add(resultSet.getString("Phone"));
-            customer.add(resultSet.getString("Country"));
-            customer.add(resultSet.getString("City"));
-            customer.add(resultSet.getString("Street"));
-            customer.add(Integer.toString(resultSet.getInt("BuildingNumber")));
-            customer.add(resultSet.getString("Email"));
-            customer.add(resultSet.getString("Password"));
+            customer.add(Integer.toString(resultSet.getInt("SSN"))) ;
+            customer.add(resultSet.getString("FName")) ;
+            customer.add(resultSet.getString("LName")) ;
+            customer.add(resultSet.getString("Phone")) ;
+            customer.add(resultSet.getString("Email")) ;
+            customer.add(resultSet.getString("Password")) ;
+            customer.add(resultSet.getString("Country")) ;
+            customer.add(resultSet.getString("City")) ;
+            customer.add(resultSet.getString("Street")) ;
+            customer.add(Integer.toString(resultSet.getInt("BuildingNumber"))) ;
+            customer.add(resultSet.getString("BranchName")) ;
+            customer.add(resultSet.getString("BankName")) ;
 
-            this.getBranchesInfo(resultSet.getInt("BankCode"),
-                    resultSet.getInt("BranchNumber"),
-                    customer);
-
-            list.add(customer);
+            list.add(customer) ;
         }
+
         connection.close();
         statement.close();
-
-        return list;
+        return list ;
     }
+
     public List<List<String>> showListPendingLoansTable(int ssn) throws SQLException {
         String sql = "Select LoanRequests.CustomerSSN, LoanRequests.LoanNumber, LoanRequests.Status\n" +
                 "from LoanRequests ,Loan where LoanRequests.LoanNumber = Loan.LoanNumber\n" +
@@ -66,36 +76,6 @@ public class DataBase {
         statement.close();
         return list ;
     }
-
-    private void getBanksInfo(int bankId, List<String> customer) throws SQLException {
-        String sql = "Select * from Bank where Code =" + bankId + ";";
-        Statement statement = connection.createStatement();
-
-        ResultSet resultSet = statement.executeQuery(sql);
-        customer.add(resultSet.getString("Name"));
-
-        connection.close();
-        statement.close();
-    }
-
-    private void getBranchesInfo(int bankCode, int Id, List<String> customer) throws SQLException {
-        String sql = "Select * from Branch where BranchNumber =" + Id + " and BankCode = " + bankCode + ";";
-        Statement statement = connection.createStatement();
-
-        ResultSet resultSet = statement.executeQuery(sql);
-        int bankId = 0;
-        bankId = resultSet.getInt("BankCode");
-        customer.add(resultSet.getString("Name"));
-
-        getBanksInfo(bankId, customer);
-        connection.close();
-        statement.close();
-    }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
     public void addAccount(int accountNumber, int ssn,
                            String accountType, double accountBalance,
                            int branchNumber, int bankCode) throws SQLException {
@@ -119,9 +99,6 @@ public class DataBase {
                 + password + "'," + branchNumber + "," + bankCode + ");";
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
-
-        connection.close();
-        statement.close();
     }
 
     public boolean addBranch(int branchNumber, int bankCode, String name, String street, String city, String country) throws SQLException {
@@ -157,8 +134,6 @@ public class DataBase {
 
     public boolean Login(String email, String password, String Table)
             throws SQLException {
-        DataBase database = new DataBase();
-        Connection connection = database.getConnection();
         Statement statement = connection.createStatement();
         String query = "SELECT * FROM " + Table + " WHERE Email = '" + email + "' AND password = '" + password + "'";
 
@@ -183,8 +158,7 @@ public class DataBase {
 
     public boolean UpdateCustomer(int employeeSSN, int CustomerSSN)
             throws SQLException {
-        DataBase database = new DataBase();
-        Connection connection = database.getConnection();
+
         Statement statement = connection.createStatement();
         String query = "SELECT * FROM Customer , Account  WHERE Customer.SSN = Account.CustomerSSN and SSN = '" + CustomerSSN + "'";
 
@@ -308,6 +282,43 @@ public class DataBase {
 
         return list;
 
+    }
+    public void updateStateToPayed(String customerSSN, String loanNumber) throws SQLException {
+        String sql = "update LoanRequests set Status = 'Payed' " +
+                "where CustomerSSN = " + customerSSN + " and LoanNumber = " + loanNumber + ";";
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
+
+        statement.close() ;
+        connection.close();
+    }
+
+    public void getStartedLoans(List<List<String>> info, int empSSN) throws SQLException {
+        String sql = "Select CustomerSSN, LoanRequests.LoanNumber, LoanAmount, LoanType\n" +
+                "from LoanRequests, Loan\n" +
+                "where LoanRequests.LoanNumber = Loan.LoanNumber\n" +
+                "and Status = 'Started'  and BranchNumber = (SELECT BranchNumber from Employee\n" +
+                "                                           where SSN = " + empSSN + ")\n" +
+                "                        and BankCode = (SELECT BankCode from Employee\n" +
+                "                                           where SSN = " + empSSN + ") ;" ;
+
+        Statement statement = connection.createStatement() ;
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()){
+            List<String> row = new LinkedList<>();
+
+            row.add(Integer.toString((resultSet.getInt("CustomerSSN")))) ;
+            row.add(Integer.toString((resultSet.getInt("LoanNumber")))) ;
+            row.add(Integer.toString((resultSet.getInt("LoanAmount")))) ;
+            row.add((resultSet.getString("LoanType"))) ;
+
+            info.add(row) ;
+        }
+
+        statement.close() ;
+        connection.close();
     }
 }
 

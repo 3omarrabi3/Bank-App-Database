@@ -6,43 +6,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import java.awt.*;
 
 public class CustomersListForm extends JDialog {
     private JPanel CustomersListPanel;
-    private JTable CustomersTable;
+    private JTable customersTable;
     private JButton cancelButton;
-
+    private JScrollPane scrollPane;
+    private JLabel Heading;
     private int SSN;
 
     public CustomersListForm(JFrame parent , int ssn) {
         super(parent);
         setTitle("Customers List");
-        setMinimumSize(new Dimension(1300, 700));
+        setContentPane(CustomersListPanel);
+        setMinimumSize(new Dimension(1000, 700));
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setModal(true);
-
         SSN = ssn;
-
-        // Create the table
-        CustomersTable = new JTable();
-        JScrollPane scrollPane = new JScrollPane(CustomersTable);
-
-
-        cancelButton = new JButton("Cancel");
-        cancelButton.setBackground(Color.red);
-
-        // Create a panel to hold the table and the button
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.add(scrollPane, BorderLayout.CENTER);
-        contentPanel.add(cancelButton, BorderLayout.SOUTH);
-
-        setContentPane(contentPanel);
 
         try {
             this.showList();
@@ -50,13 +32,9 @@ public class CustomersListForm extends JDialog {
         catch (SQLException sqlException) {
             System.out.println(sqlException.getErrorCode());
         }
-
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new EmployeeForm(null, SSN);
-            }
+        cancelButton.addActionListener(e -> {
+            dispose();
+            new EmployeeForm(null, SSN);
         });
 
         pack();
@@ -64,44 +42,36 @@ public class CustomersListForm extends JDialog {
     }
 
     private void showList() throws SQLException {
-        // Get the customers from the database
-        // Then make the table
-
         DataBase dataBase = new DataBase();
-        List<List<String>> list = dataBase.showList();
+        List<List<String>> list = dataBase.showList(SSN);
         createCustomerTable(list);
     }
 
     private void createCustomerTable(List<List<String>> list) {
-        // Create a custom table model
-        DefaultTableModel model = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Make all cells uneditable
-            }
-        };
-
-        // Declare the columns of header
         String[] columns = {"SSN", "FName", "LName", "Phone", "Country", "City", "Street",
                 "BuildingNumber", "Email", "Password", "BranchName", "BankName"};
 
-        // Add the columns to the model
-        model.setColumnIdentifiers(columns);
+        String[][] data = new String[list.size()][] ;
 
-        // Add the data to the model
-        for (List<String> row : list) {
-            model.addRow(row.toArray());
+        for (int i = 0; i < list.size(); i++) {
+            data[i] = new String[list.get(i).size()] ;
+
+            for (int j = 0; j < list.get(i).size(); j++) {
+                data[i][j] = list.get(i).get(j) ;
+            }
         }
 
-        // Create the table
-        CustomersTable.setModel(model);
+        customersTable.setModel(new DefaultTableModel(
+                data,
+                columns
+        ));
 
-        JTableHeader tableHeader = CustomersTable.getTableHeader();
+        JTableHeader tableHeader = customersTable.getTableHeader();
         tableHeader.setBackground(new Color(0, 145, 201));
 
         Font font = new Font("Segoe Print", Font.BOLD, 18);
         Font tablefont = new Font("Segoe Print",Font.PLAIN, 12);
-        CustomersTable.setFont(tablefont);
+        customersTable.setFont(tablefont);
         tableHeader.setFont(font);
         cancelButton.setFont(font);
 
