@@ -30,26 +30,51 @@ public class AddBankForm extends JDialog{
         setModal(true);
         addBankButton.addActionListener(e -> {
             {
+                DataBase dataBase = null;
                 try {
-                    DataBase dataBase = new DataBase();
-                    int code = Integer.parseInt(tfBankCode.getText());
-                    String name = tfBankName.getText();
-                    String street = tfStreet.getText();
-                    String city = tfCity.getText();
-                    String country = tfCountry.getText();
-
-                    dataBase.addBank(code,name,street,city,country);
-                } catch (SQLException ee) {
-                    throw new RuntimeException(ee);
+                    dataBase = new DataBase();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
+                String code = tfBankCode.getText();
+                String name = tfBankName.getText();
+                String street = tfStreet.getText();
+                String city = tfCity.getText();
+                String country = tfCountry.getText();
+
+                if (LoginForm.checkWords(name) &&
+                        LoginForm.checkWords(street) &&
+                        LoginForm.checkWords(city) &&
+                        LoginForm.checkNumber(code) &&
+                        LoginForm.checkWords(country)) {
+                    try {
+
+
+
+                        if (dataBase.addBank(Integer.parseInt(code), name, street, city, country)) {
+                            JOptionPane.showMessageDialog(AddBankForm.this,
+                                    "Bank has been added successfully",
+                                    "Successful Operation",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                            dispose();
+                            new AdminForm(null);
+                        } else {
+                            JOptionPane.showMessageDialog(AddBankForm.this,
+                                    "This bank is already exist in the system",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+                    } catch (SQLException ee) {
+                        throw new RuntimeException(ee);
+                    }
+                }
+
+                // function to check if the bank is already in the table to be added.
+                dispose();
+                new AdminForm(null);
             }
-            JOptionPane.showMessageDialog(AddBankForm.this,
-                    "Bank has been Added successfully",
-                    "Successful Operation",
-                    JOptionPane.INFORMATION_MESSAGE);
-            // function to check if the bank is already in the table to be added.
-            dispose();
-            new AdminForm(null);
         });
 
 

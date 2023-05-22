@@ -25,5 +25,17 @@
         </library>
       </libraries>
     </data-source>
+    <data-source source="LOCAL" name="identifier [3]" uuid="474d183e-37de-425b-b296-2d9da21e35dc">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:G:\Second Semester\Data Base\6.ASS\2. Working on it\New folder (2)\Bank-App-Database\Bank System DataBase\identifier.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/org/xerial/sqlite-jdbc/3.40.1.0/sqlite-jdbc-3.40.1.0.jar</url>
+        </library>
+      </libraries>
+    </data-source>
   </component>
 </project>

@@ -197,7 +197,7 @@ public class DataBase {
         statement.executeUpdate(sql);
     }
 
-    public void setACCount( int ssn,
+    public void setACCount(int ssn,
                            String accountType, double accountBalance,
                            int branchNumber, int bankCode) throws SQLException {
 
@@ -210,11 +210,29 @@ public class DataBase {
 
     }
 
-    public void addBank(int code,String name,String Street,String City,String Country) throws SQLException {
-        String sql="INSERT INTO Bank(Code,Name,Street,City,Country) " +
-                "VALUES("+code+",'"+name+"','"+Street+"','"+City+"','"+Country+"');";
-        Statement statement=connection.createStatement();
-        statement.executeUpdate(sql);
+    public Boolean addBank(int code, String name, String Street, String City, String Country) throws SQLException {
+        String selectQuery = "SELECT * FROM Bank WHERE Code = " + code;
+        Statement selectStatement = connection.createStatement();
+        ResultSet resultSet = selectStatement.executeQuery(selectQuery);
+        if (resultSet.next()) {
+            // Bank with the same bank code already exists
+            resultSet.close();
+            selectStatement.close();
+            return false;
+        } else {
+            String sql = "INSERT INTO Bank(Code,Name,Street,City,Country) " +
+                    "VALUES(" + code + ",'" + name + "','" + Street + "','" + City + "','" + Country + "');";
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+
+
+            statement.close();
+            resultSet.close();
+            selectStatement.close();
+            return true;
+        }
     }
+
+
 }
 
