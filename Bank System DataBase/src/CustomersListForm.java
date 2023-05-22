@@ -46,7 +46,8 @@ public class CustomersListForm extends JDialog {
 
         try {
             this.showList();
-        } catch (SQLException sqlException) {
+        }
+        catch (SQLException sqlException) {
             System.out.println(sqlException.getErrorCode());
         }
 

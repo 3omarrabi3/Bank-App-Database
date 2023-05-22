@@ -66,10 +66,10 @@ public class DataBase {
 
     public void addAccount(int accountNumber, int ssn,
                            String accountType, double accountBalance,
-                           int branchNumber) throws SQLException {
+                           int branchNumber, int bankCode) throws SQLException {
 
-        String sql = "insert into Account values ("+accountNumber+","+ssn+",'"+accountType+"'," +
-                " "+accountBalance+", "+branchNumber+");";
+        String sql = "insert into Account values ("+accountNumber+","+branchNumber+","+bankCode+"," +
+                " "+ssn+", "+accountBalance+", '"+accountType+"' );";
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
 

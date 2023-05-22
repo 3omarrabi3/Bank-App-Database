@@ -82,7 +82,7 @@ public class AddCustomerForm extends JDialog{
                         dataBase.addCustomer(SSN, firstName, lastName, phone,
                                 street, city, country, buildingNumber,
                                 email, password, branchNumber, bankCode);
-                        dataBase.addAccount(AccountNumber, SSN, AccountType, AccountBalance, branchNumber);
+                        dataBase.addAccount(AccountNumber, SSN, AccountType, AccountBalance, branchNumber, bankCode);
                     }
                     catch (SQLException ex) {
                         throw new RuntimeException(ex);

@@ -86,7 +86,7 @@ public class LoginForm extends JDialog {
 
     void checkLogin_Employee(String email, String Password)  // method to check the login when the employee is logged in.
      throws SQLException {
-        DataBase database = new DataBase();
+         DataBase database = new DataBase();
          Connection connection = database.getConnection();
          Statement statement = connection.createStatement();
          String query = "SELECT * FROM Employee WHERE Email = '" + email + "' AND password = '" + Password + "'";
@@ -95,14 +95,14 @@ public class LoginForm extends JDialog {
 
 
          if (resultSet.next()) {
-             int SNN =resultSet.getInt("SNN");
+             int SSN =resultSet.getInt("SSN");
              String Name = resultSet.getString("FName") + " " + resultSet.getString("LName");
              JOptionPane.showMessageDialog(LoginForm.this,
                      "Welcome, "+Name,
                      "Successful Login!",
                      JOptionPane.INFORMATION_MESSAGE);
              dispose();
-             new EmployeeForm(null,SNN);
+             new EmployeeForm(null,SSN);
          }
          else {
              JOptionPane.showMessageDialog(LoginForm.this,
