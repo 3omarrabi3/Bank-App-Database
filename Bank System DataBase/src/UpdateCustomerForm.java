@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class UpdateCustomerForm extends JDialog{
     private JPanel UpdateCustomerPanel;
@@ -24,8 +25,18 @@ public class UpdateCustomerForm extends JDialog{
 
         getCustomerButton.addActionListener(e -> {
             int customerSSN =Integer.parseInt( tfSSN.getText());
-            new CustomerInfoForm (null,SSN,customerSSN);
-            dispose();
+            DataBase dataBase = null;
+            try {
+                dataBase = new DataBase ();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            try {
+                if(dataBase.UpdateCustomer(SSN,customerSSN))
+                    dispose();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         // __________________________________________________________________________________________________________________
