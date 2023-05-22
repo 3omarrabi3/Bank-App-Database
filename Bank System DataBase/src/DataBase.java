@@ -38,6 +38,8 @@ public class DataBase {
 
             list.add(customer);
         }
+        connection.close();
+        statement.close();
 
         return list;
     }
@@ -48,6 +50,9 @@ public class DataBase {
 
         ResultSet resultSet = statement.executeQuery(sql);
         customer.add(resultSet.getString("Name"));
+
+        connection.close();
+        statement.close();
     }
 
     private void getBranchesInfo(int bankCode, int Id, List<String> customer) throws SQLException {
@@ -60,6 +65,8 @@ public class DataBase {
         customer.add(resultSet.getString("Name"));
 
         getBanksInfo(bankId, customer);
+        connection.close();
+        statement.close();
     }
 
     public Connection getConnection() {
@@ -75,7 +82,8 @@ public class DataBase {
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
 
-
+        connection.close();
+        statement.close();
     }
 
     public void addCustomer(int ssn, String firstName, String lastName, int phone,
@@ -89,7 +97,8 @@ public class DataBase {
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
 
-
+        connection.close();
+        statement.close();
     }
 
     public boolean addBranch(int branchNumber, int bankCode, String name, String street, String city, String country) throws SQLException {
@@ -139,6 +148,9 @@ public class DataBase {
                     "Successful Login!",
                     JOptionPane.INFORMATION_MESSAGE);
             new EmployeeForm(null, SSN);
+
+            connection.close();
+            statement.close();
             return true;
         }
         return false;
@@ -173,6 +185,9 @@ public class DataBase {
             new CustomerInfoForm(null, employeeSSN, CustomerSSN,
                     FirstName, LastName, Email, Password, Country, City, Street
                     , AccountType, BankCode, BranchNumber, BuildingNumber, Phone, AccountBalance);
+
+            connection.close();
+            statement.close();
             return true;
         }
 
@@ -195,6 +210,9 @@ public class DataBase {
                 "Email = '" + email + "', Password = '" + password + "', BranchNumber = " + branchNumber + ", BankCode = " + bankCode + " WHERE SSN = " + ssn;
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
+
+        connection.close();
+        statement.close();
     }
 
     public void setACCount(int ssn,
@@ -207,7 +225,8 @@ public class DataBase {
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
 
-
+        connection.close();
+        statement.close();
     }
 
     public Boolean addBank(int code, String name, String Street, String City, String Country) throws SQLException {
@@ -232,10 +251,6 @@ public class DataBase {
             return true;
         }
     }
-
-
-
-
     public List<List<String>> getLoans(int ss) throws SQLException {
         String selectQuery = "select Loan.LoanNumber,Loan.BranchNumber ,Loan.BankCode\n" +
                 "     , Loan.LoanAmount, Loan.LoanType, Employee.SSN\n" +
@@ -259,25 +274,15 @@ public class DataBase {
             loan.add(resultSet.getString("FName"));
             loan.add(resultSet.getString("LName"));
 
-
             list.add(loan);
 
         }
         resultSet.close();
         selectStatement.close();
+        connection.close();
+
         return list;
 
     }
-
-    public static void main(String[] args) throws SQLException {
-        DataBase database = new DataBase();
-        Connection connection = database.getConnection();
-        Statement statement = connection.createStatement();
-        database.getLoans(112);
-
-
-    }
-
-
 }
 
