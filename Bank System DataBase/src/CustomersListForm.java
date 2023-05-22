@@ -22,7 +22,7 @@ public class CustomersListForm extends JDialog {
     public CustomersListForm(JFrame parent , int ssn) {
         super(parent);
         setTitle("Customers List");
-        setMinimumSize(new Dimension(820, 420));
+        setMinimumSize(new Dimension(1300, 700));
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setModal(true);
