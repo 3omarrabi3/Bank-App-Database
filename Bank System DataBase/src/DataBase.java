@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -120,5 +121,27 @@ public class DataBase {
         }
     }
 
+    public boolean Login(String email, String password, String Table)
+            throws SQLException {
+        DataBase database = new DataBase();
+        Connection connection = database.getConnection();
+        Statement statement = connection.createStatement();
+        String query = "SELECT * FROM " + Table + " WHERE Email = '" + email + "' AND password = '" + password + "'";
 
+        ResultSet resultSet = statement.executeQuery(query);
+
+
+        if (resultSet.next()) {
+            int SSN = resultSet.getInt("SSN");
+            String Name = resultSet.getString("FName") + " " + resultSet.getString("LName");
+            JOptionPane.showMessageDialog(null,
+                    "Welcome, "+Name,
+                    "Successful Login!",
+                    JOptionPane.INFORMATION_MESSAGE);
+            new EmployeeForm(null, SSN);
+            return true;
+        }
+        return false;
+    }
 }
+
