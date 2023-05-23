@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class AddCustomerForm extends JDialog{
@@ -25,6 +23,9 @@ public class AddCustomerForm extends JDialog{
     private JTextField tfBranchNumber;
     private JTextField tfBankCode;
     int SSN;
+
+    //==================================================================================================================
+
     public AddCustomerForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
@@ -38,6 +39,8 @@ public class AddCustomerForm extends JDialog{
         setModal(true);
 
         SSN =ssn;
+
+    //==================================================================================================================
 
         addCustomerButton.addActionListener(e -> {
 
@@ -69,7 +72,7 @@ public class AddCustomerForm extends JDialog{
                     int AccountNumber = Integer.parseInt(tfAccountNumber.getText());
                     double AccountBalance = Double.parseDouble(tfAccountBalance.getText());
 
-                    DataBase  dataBase = null;
+                    DataBase  dataBase;
                     try {
                         dataBase = new DataBase();
                     } catch (SQLException ex) {
@@ -112,9 +115,13 @@ public class AddCustomerForm extends JDialog{
 
         });
 
+    //==================================================================================================================
+
         cancelButton.addActionListener(e -> {
             new EmployeeForm(null,ssn);
             dispose();
         });
+
+    //==================================================================================================================
     }
 }
