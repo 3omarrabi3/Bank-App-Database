@@ -10,8 +10,6 @@ public class CustomersListForm extends JDialog {
     private JPanel CustomersListPanel;
     private JTable customersTable;
     private JButton cancelButton;
-    private JScrollPane scrollPane;
-    private JLabel Heading;
     private final int SSN;
 
     //==================================================================================================================

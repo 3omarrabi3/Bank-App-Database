@@ -790,12 +790,6 @@ public class DataBase {
     }
 
     //==================================================================================================================
-    public boolean checkExistanceLoanNumber(int x) throws SQLException {
-        // function to check of the existence of the branch and the bank.
-        String selectQuery = "SELECT * FROM Loan WHERE LoanNumber = " + x ;
-        Statement selectStatement = connection.createStatement();
-        ResultSet resultSet = selectStatement.executeQuery(selectQuery);
-        return resultSet.next();
-    }
+
 }
 

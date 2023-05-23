@@ -18,7 +18,7 @@ public class EmployeeForm extends JDialog {
         super(parent);
         setTitle("Employee");
         setContentPane(EmployeePanel);
-        setMinimumSize(new Dimension(820, 420));
+        setMinimumSize(new Dimension(820, 460));
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
