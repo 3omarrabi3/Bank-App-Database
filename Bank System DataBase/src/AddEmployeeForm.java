@@ -29,9 +29,9 @@ public class AddEmployeeForm extends JDialog{
         setVisible(true);
         setModal(true);
 
+    //==================================================================================================================
 
-
-        addEmployeeButton.addActionListener(e -> {
+        addEmployeeButton.addActionListener(e -> {  // Button to add Employee.
             String branchNumber = tfBranchNumber.getText();
             String bankCode = tfBankCode.getText();
             String firstName = tfFirstName.getText();
@@ -75,14 +75,16 @@ public class AddEmployeeForm extends JDialog{
             }
         });
 
-        cancelButton.addActionListener(e -> {
+    //==================================================================================================================
+
+        cancelButton.addActionListener(e -> {   // Button to return to previous form.
             dispose();
             new Home(null);
         });
 
+    //==================================================================================================================
+
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
+    //==================================================================================================================
 }
