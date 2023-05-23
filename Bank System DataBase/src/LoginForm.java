@@ -1,31 +1,36 @@
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class LoginForm extends JDialog {
+
+public class LoginForm extends JDialog {    // Class for Login Form.
+    //Fields in the form.
     private JTextField tfEmail;
     private JPasswordField pfPassword;
     private JButton loginButton;
     private JButton cancelButton;
     private JPanel LoginPanel;
     private final String type;
-    private static String phoneNumberRegex = "^01\\d{8}$";
-    private static String numbersRegex = "^[0-9]+$";
-    private static String doubleRegex = "^[-+]?\\d*\\.?\\d+$";
-    private static String nameRegex = "^[A-Za-z\\s]+$";
-    private static String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-    private static String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+
+    // Regex pattern.
+    private static final String numbersRegex = "^[0-9]+$";
+    private static final String doubleRegex = "^[-+]?\\d*\\.?\\d+$";
+    private static final String nameRegex = "^[A-Za-z\\s]+$";
+    private static final String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
     //__________________________________________________________________________________________________________________
 
-    public LoginForm() {
+    public LoginForm() {    // Empty constructor to call the static methods in other classes.
+
         type = null;
+
     }
+
+    //__________________________________________________________________________________________________________________
 
     public LoginForm(JFrame parent, String Type)     // constructor that sets the suitable attributes for the form.
     {
+
         super(parent);
         setTitle("Login");
         setContentPane(LoginPanel);
@@ -38,7 +43,7 @@ public class LoginForm extends JDialog {
 
         //__________________________________________________________________________________________________________________
 
-        loginButton.addActionListener(e -> {
+        loginButton.addActionListener(e -> {    // Action li
             String email = tfEmail.getText();
             char[] passwordArr = pfPassword.getPassword();
             String password = new String(passwordArr);
