@@ -3,8 +3,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,8 +14,9 @@ public class StartForm extends JDialog {
     private JTextField textField1;
     private JTable table1;
 
-    private int SSN;
+    private final int SSN;
 
+    //__________________________________________________________________________________________________________________
     public StartForm(JFrame parent, int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
@@ -31,64 +31,37 @@ public class StartForm extends JDialog {
 
         SSN = ssn;
 
-//        table1 = new JTable();
-//        JScrollPane scrollPane = new JScrollPane(table1);
-//        startButton = new JButton("Start");
-//        startButton.setBackground(new Color(0, 145, 201));
-//        cancelButton = new JButton("Cancel");
-//        cancelButton.setBackground(Color.red);
-//
-//        textField1 = new JTextField(10);
+    //__________________________________________________________________________________________________________________
 
-        // Create a panel to hold the text field and the buttons
-//        JPanel buttonPanel = new JPanel(new BorderLayout());
-//        JLabel loanNumberLabel = new JLabel("please enter the loan number you want to start paying:");
-//        buttonPanel.add(loanNumberLabel, BorderLayout.WEST);
-//        buttonPanel.add(textField1, BorderLayout.CENTER);
-//
-//        // Create a panel to hold the buttons
-//        JPanel buttonSubPanel = new JPanel(new GridLayout(1, 2, 5, 0));
-//        buttonSubPanel.add(startButton);
-//        buttonSubPanel.add(cancelButton);
-//
-//        buttonPanel.add(buttonSubPanel, BorderLayout.SOUTH);
-//
-//        // Create a panel to hold the table and the button panel
-//        JPanel contentPanel = new JPanel(new BorderLayout());
-//        contentPanel.add(scrollPane, BorderLayout.CENTER);
-//        contentPanel.add(buttonPanel, BorderLayout.SOUTH);
-//
-//        setContentPane(contentPanel);
         try {
             this.showAcceptedLoanList();
         }
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String loanNum = textField1.getText();
-                if (LoginForm.checkNumber(textField1.getText())){
-                    DataBase dataBase = null;
-                    try {
-                        dataBase =new DataBase();
-                        dataBase.updateLoanstatu(ssn,loanNum);
+        startButton.addActionListener(e -> {
+            String loanNum = textField1.getText();
+            if (LoginForm.checkNumber(textField1.getText())){
+                DataBase dataBase;
+                try {
+                    dataBase =new DataBase();
+                    dataBase.updateLoanstatu(ssn,loanNum);
 
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
-                new CustomersForm(null, SSN);
-                dispose();
             }
+            new CustomersForm(null, SSN);
+            dispose();
         });
+    //__________________________________________________________________________________________________________________
 
         cancelButton.addActionListener(e -> {
             new CustomersForm(null, SSN);
             dispose();
         });
     }
+    //__________________________________________________________________________________________________________________
 
     public void showAcceptedLoanList() throws SQLException {
         // Get the customers from the database
@@ -98,6 +71,8 @@ public class StartForm extends JDialog {
         List<List<String>> list = dataBase.getAcceptedList(SSN);
         createLoanTable(list);
     }
+
+    //__________________________________________________________________________________________________________________
 
     private void createLoanTable(List<List<String>> list) {
 
