@@ -40,7 +40,25 @@ public class UpdateCustomerForm extends JDialog{
             }
         });
 
-        // __________________________________________________________________________________________________________________
+        // _____________________________________________________________________________________________________________
+
+        deleteCustomerButton.addActionListener(e->{
+            int customerSSN =Integer.parseInt( tfSSN.getText());
+            DataBase dataBase = null;
+            try {
+                dataBase = new DataBase ();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            try {
+                if(dataBase.DeleteCustomer(SSN,customerSSN)) {
+
+                    dispose();
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         cancelButton.addActionListener(e -> {
             new EmployeeForm(null,SSN);

@@ -396,6 +396,39 @@ public class DataBase {
     }
 
     //==================================================================================================================
+    public boolean DeleteCustomer(int employeeSSN, int CustomerSSN)
+            throws SQLException {
+
+        Statement statement = connection.createStatement();
+        String query = "SELECT * FROM Customer , Account  WHERE Customer.SSN = Account.CustomerSSN and SSN = '" + CustomerSSN + "'";
+
+        ResultSet resultSet = statement.executeQuery(query);
+        if (resultSet.next()) {
+            String sql = "DELETE FROM Customer WHERE  SSN = '" + CustomerSSN + "'";
+            statement = connection.createStatement();
+            statement.executeUpdate(sql);
+            sql = "DELETE FROM Account WHERE  CustomerSSN = '" + CustomerSSN + "'";
+            statement.executeUpdate(sql);
+
+            JOptionPane.showMessageDialog(null,
+                    "Customer deleted successfully!",
+                    "Successful Operation!",
+                    JOptionPane.INFORMATION_MESSAGE);
+            new EmployeeForm(null,employeeSSN);
+            return true;
+        }
+
+        JOptionPane.showMessageDialog(null,
+                "Couldn't find Customer",
+                "Invalid SSN!!!",
+                JOptionPane.ERROR_MESSAGE);
+        connection.close();
+        statement.close();
+        return false;
+
+    }
+
+    //==================================================================================================================
 
 }
 
