@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class Home extends JDialog{
@@ -46,12 +44,17 @@ public class Home extends JDialog{
             dispose();
         });
 
-        exitButton.addActionListener(e -> {
+    //__________________________________________________________________________________________________________________
+
+        exitButton.addActionListener(e -> {     // Button to exit the application.
             dispose() ;
         });
 
-        showDataButton.addActionListener(e ->
-                new ShowDataForm(null));
+    //__________________________________________________________________________________________________________________
+
+        showDataButton.addActionListener(e ->{  // Button to show the data.
+            new ShowDataForm(null);
+            dispose(); });
     }
 
     //__________________________________________________________________________________________________________________
