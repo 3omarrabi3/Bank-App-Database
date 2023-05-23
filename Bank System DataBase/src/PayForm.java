@@ -18,6 +18,9 @@ public class PayForm extends JDialog{
     private JTextField textFieldAmount;
     private JTextField textFieldLoanNumber;
     int SSN;
+
+    //__________________________________________________________________________________________________________________
+
     public PayForm(JFrame parent , int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
@@ -34,10 +37,14 @@ public class PayForm extends JDialog{
         List<List<String>> list = new LinkedList<>() ;
         createTable(list) ;
 
+    //__________________________________________________________________________________________________________________
+
         cancelButton.addActionListener(e -> {
             new EmployeeForm(null, SSN);
             dispose();
         });
+
+    //__________________________________________________________________________________________________________________
 
         payButton.addActionListener(e -> {
             try{
@@ -90,6 +97,8 @@ public class PayForm extends JDialog{
             }
         });
     }
+
+    //__________________________________________________________________________________________________________________
 
     private void createTable(List<List<String>> list) {
         try {

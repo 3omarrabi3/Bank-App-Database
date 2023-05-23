@@ -14,7 +14,9 @@ public class PendingLoansForm extends JDialog{
     private JTextField textField1;
     private JTextField textField2;
 
-    private int SSN;
+    private final int SSN;
+
+    //__________________________________________________________________________________________________________________
 
     private void Update(String Str) throws SQLException {
 
@@ -52,6 +54,8 @@ public class PendingLoansForm extends JDialog{
 
         }
     }
+
+    //__________________________________________________________________________________________________________________
 
     public PendingLoansForm(JFrame parent,int ssn)  // Constructor.
     {
@@ -97,7 +101,7 @@ public class PendingLoansForm extends JDialog{
 
     }
 
-
+    //__________________________________________________________________________________________________________________
 
     private void showListPendingLoansTable() throws SQLException {
         // Get the customers from the database
@@ -107,6 +111,9 @@ public class PendingLoansForm extends JDialog{
         createPendingLoansTable(list);
 
     }
+
+    //__________________________________________________________________________________________________________________
+
     private void createPendingLoansTable(List<List<String>> list) {
         // Create a custom table model
         DefaultTableModel model = new DefaultTableModel() {
