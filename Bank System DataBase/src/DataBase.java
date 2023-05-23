@@ -429,6 +429,71 @@ public class DataBase {
     }
 
     //==================================================================================================================
+    public void sentrequestLoan(int ssn, String loanNum) throws SQLException {
+        String sql = "insert into LoanRequests values(" + ssn + "," + loanNum + ", 'Pending' )";
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
+    }
+    //==================================================================================================================
 
+    public void updateLoanstatu(int ssn, String loanNum) throws SQLException {
+        String sql = "UPDATE LoanRequests " +
+                "SET Status = 'Started' " +
+                "WHERE CustomerSSN= "+ssn+" and LoanNumber= "+loanNum+" ;";
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
+    }
+    //==================================================================================================================
+
+    public List<List<String>> showLoanList(int ssn) throws SQLException {
+
+        String sql = "SELECT Loan.LoanNumber, Loan.BranchNumber, Loan.BankCode, Loan.LoanAmount, Loan.LoanType " +
+                "FROM Loan, Customer " +
+                "WHERE Customer.SSN = " + ssn + " AND " +
+                "Customer.BranchNumber = Loan.BranchNumber AND " +
+                "Customer.BankCode = Loan.BankCode";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        List<List<String>> list = new LinkedList<>();
+
+        while (resultSet.next()) {
+            List<String> Loan = new LinkedList<>();
+
+            Loan.add(Integer.toString(resultSet.getInt("LoanNumber")));
+            Loan.add(Integer.toString(resultSet.getInt("BranchNumber")));
+            Loan.add(Integer.toString(resultSet.getInt("BankCode")));
+            Loan.add(Integer.toString(resultSet.getInt("LoanAmount")));
+            Loan.add(resultSet.getString("LoanType"));
+
+            list.add(Loan);
+        }
+
+        return list;
+    }
+    //==================================================================================================================
+
+    public List<List<String>> getAcceptedList(int ssn) throws SQLException {
+        String sql = "SELECT * from LoanRequests where CustomerSSN = " + ssn +
+                " and Status='Accepted';";
+
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        List<List<String>> list = new LinkedList<>();
+
+        while (resultSet.next()) {
+            List<String> Loan = new LinkedList<>();
+
+            Loan.add(Integer.toString(resultSet.getInt("CustomerSSN")));
+            Loan.add(Integer.toString(resultSet.getInt("LoanNumber")));
+            Loan.add(resultSet.getString("Status"));
+
+            list.add(Loan);
+        }
+
+        return list;
+
+    }
 }
 
