@@ -3,8 +3,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,7 +13,9 @@ public class RequestForm extends JDialog {
     private JTable table1;
     private JTextField textField1;
 
-    private int SSN;
+    private final int SSN;
+
+    //__________________________________________________________________________________________________________________
 
     public RequestForm(JFrame parent, int ssn)  // Constructor.
     {
@@ -66,6 +66,9 @@ public class RequestForm extends JDialog {
         catch (SQLException sqlException) {
             System.out.println(sqlException.getErrorCode());
         }
+
+    //__________________________________________________________________________________________________________________
+
         cancelButton.addActionListener(e -> {
             dispose();
             new CustomersForm(null, SSN);
@@ -73,25 +76,26 @@ public class RequestForm extends JDialog {
         pack();
         setVisible(true);
 
-        requestButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String loanNum = textField1.getText();
-                if (LoginForm.checkNumber(textField1.getText())) {
-                    DataBase dataBase = null;
-                    try {
-                        dataBase = new DataBase();
-                        dataBase.sentrequestLoan(SSN, loanNum);
+    //__________________________________________________________________________________________________________________
 
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    new CustomersForm(null, SSN);
-                    dispose();
+        requestButton.addActionListener(e -> {
+            String loanNum = textField1.getText();
+            if (LoginForm.checkNumber(textField1.getText())) {
+                DataBase dataBase;
+                try {
+                    dataBase = new DataBase();
+                    dataBase.sentrequestLoan(SSN, loanNum);
+
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
+                new CustomersForm(null, SSN);
+                dispose();
             }
         });
     }
+
+    //__________________________________________________________________________________________________________________
 
     private void showLoanList() throws SQLException {
         // Get the customers from the database
@@ -101,6 +105,8 @@ public class RequestForm extends JDialog {
         List<List<String>> list = dataBase.showLoanList(SSN);
         createLoanTable(list);
     }
+
+    //__________________________________________________________________________________________________________________
 
     private void createLoanTable(List<List<String>> list) {
         // Create a custom table model
