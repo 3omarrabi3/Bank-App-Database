@@ -62,12 +62,11 @@ public class RequestForm extends JDialog {
 
         try {
             this.showLoanList();
-        }
-        catch (SQLException sqlException) {
+        } catch (SQLException sqlException) {
             System.out.println(sqlException.getErrorCode());
         }
 
-    //__________________________________________________________________________________________________________________
+        //__________________________________________________________________________________________________________________
 
         cancelButton.addActionListener(e -> {
             dispose();
@@ -76,22 +75,41 @@ public class RequestForm extends JDialog {
         pack();
         setVisible(true);
 
-    //__________________________________________________________________________________________________________________
+        //__________________________________________________________________________________________________________________
 
         requestButton.addActionListener(e -> {
             String loanNum = textField1.getText();
-            if (LoginForm.checkNumber(textField1.getText())) {
-                DataBase dataBase;
+            DataBase dataBase;
+
+            if (loanNum == null) {
+                JOptionPane.showMessageDialog(null,
+                        "You entered invalid inputs",
+                        "Invalid inputs",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } else if (LoginForm.checkNumber(textField1.getText())) {
                 try {
                     dataBase = new DataBase();
-                    dataBase.sentrequestLoan(SSN, loanNum);
-
+                    if (dataBase.checkExistanceLoanNumber(Integer.parseInt(loanNum))) {
+                        dataBase.sentrequestLoan(SSN, loanNum);
+                        JOptionPane.showMessageDialog(null,
+                                "the loan has been requested!",
+                                "successful request",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        new CustomersForm(null, SSN);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "the loan number is not found",
+                                "Invalid inputs",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                new CustomersForm(null, SSN);
-                dispose();
+
             }
+
         });
     }
 
