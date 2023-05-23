@@ -2,8 +2,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -14,7 +12,9 @@ public class CustomersListForm extends JDialog {
     private JButton cancelButton;
     private JScrollPane scrollPane;
     private JLabel Heading;
-    private int SSN;
+    private final int SSN;
+
+    //==================================================================================================================
 
     public CustomersListForm(JFrame parent , int ssn) {
         super(parent);
@@ -41,11 +41,15 @@ public class CustomersListForm extends JDialog {
         setVisible(true);
     }
 
+    //==================================================================================================================
+
     private void showList() throws SQLException {
         DataBase dataBase = new DataBase();
         List<List<String>> list = dataBase.showList(SSN);
         createCustomerTable(list);
     }
+
+    //==================================================================================================================
 
     private void createCustomerTable(List<List<String>> list) {
         String[] columns = {"SSN", "FName", "LName", "Phone", "Country", "City", "Street",
@@ -78,5 +82,6 @@ public class CustomersListForm extends JDialog {
         DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) tableHeader.getDefaultRenderer();
         headerRenderer.setHorizontalAlignment(JLabel.CENTER);
     }
+    //==================================================================================================================
 }
 

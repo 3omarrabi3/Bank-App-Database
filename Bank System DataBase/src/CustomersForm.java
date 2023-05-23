@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CustomersForm extends JDialog{
     private JPanel CustomerPanel;
@@ -9,13 +7,13 @@ public class CustomersForm extends JDialog{
     private JButton startButton;
     private JButton LogOutButton;
 
-    private int SSN;
+    private final int SSN;
 
     public CustomersForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
-        setTitle("Admin");
+        setTitle("Customers");
         setContentPane(CustomerPanel);
         setMinimumSize(new Dimension(820, 420));
         setLocationRelativeTo(parent);
@@ -24,26 +22,30 @@ public class CustomersForm extends JDialog{
         setModal(true);
         SSN =ssn;
 
-        requestButton.addActionListener(e -> {
+    //==================================================================================================================
+        requestButton.addActionListener(e -> {  // Button of request loan.
 
             new RequestForm(null,SSN);
             dispose();
 
         });
 
-        startButton.addActionListener(e -> {
+    //==================================================================================================================
+
+        startButton.addActionListener(e -> {    // Button of start Payment of a loan.
 
             new StartForm(null,SSN);
             dispose();
 
         });
 
-        LogOutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Home(null);
-                dispose();
-            }
+    //==================================================================================================================
+
+        LogOutButton.addActionListener(e -> {   // Button of returning to home.
+            new Home(null);
+            dispose();
         });
+    //==================================================================================================================
+
     }
 }

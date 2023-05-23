@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class EmployeeForm extends JDialog {
     private JPanel EmployeePanel;
@@ -12,7 +10,8 @@ public class EmployeeForm extends JDialog {
     private JButton LoansButton;
     private JButton payButton;
     private JButton pendingLoansButton;
-    private int SSN;
+    private JButton addLoanButton;
+    private final int SSN;
     public EmployeeForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
@@ -27,53 +26,69 @@ public class EmployeeForm extends JDialog {
 
         SSN = ssn;
 
-        addCustomerButton.addActionListener(e -> {
+    //==================================================================================================================
+
+        addCustomerButton.addActionListener(e -> {  // Button to add a new customer.
             dispose();
             new AddCustomerForm(null,SSN);
 
         });
 
-        updateCustomerButton.addActionListener(e -> {
+    //==================================================================================================================
+
+        updateCustomerButton.addActionListener(e -> {   // Button to update a customer.
             dispose();
             new UpdateCustomerForm(null,SSN);
 
         });
+
+    //==================================================================================================================
+
+        addLoanButton.addActionListener(e -> {
+
+            dispose();
+            new AddLoanForm(null,SSN);
+            // When we press the button we go to the add loan form and close the current form.
+        });
+
+    //==================================================================================================================
 
         // Show List of customers of the same bank.
         showCustomersButton.addActionListener(e -> {
             dispose();
             new CustomersListForm(null,SSN);
         });
-        LoansButton.addActionListener(e -> {
+
+    //==================================================================================================================
+
+        LoansButton.addActionListener(e -> {    // Button to show loan list.
             dispose();
             new LoansForm(null,SSN);
 
         });
-        LogOutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Home(null);
-            }
+
+    //==================================================================================================================
+
+        LogOutButton.addActionListener(e -> {   // Button to return to the previous window.
+            dispose();
+            new Home(null);
         });
-        pendingLoansButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new PendingLoansForm(null,SSN);
-            }
+
+    //==================================================================================================================
+
+        pendingLoansButton.addActionListener(e -> { // Button to show the pending loans.
+            dispose();
+            new PendingLoansForm(null,SSN);
         });
-        payButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new PayForm(null,SSN);
-            }
+
+    //==================================================================================================================
+
+        payButton.addActionListener(e -> {  // Button to pay a loan.
+            dispose();
+            new PayForm(null,SSN);
         });
     }
 
-    int getSSN()
-    {
-        return SSN;
-    }
+    //==================================================================================================================
+
 }
