@@ -63,7 +63,7 @@ public class CustomerInfoForm extends JDialog{
                 LoginForm.checkEmail(tfEmail.getText()) &&
                 LoginForm.checkNumber(tfBranchNumber.getText()) &&
                 LoginForm.checkNumber(tfBankCode.getText()) &&
-                LoginForm.checkNumber(tfAccountBalance.getText())) {
+                LoginForm.checkDouble(tfAccountBalance.getText())) {
 
             String firstName = tfFirstName.getText();
             String lastName = tfLastName.getText();
@@ -93,7 +93,7 @@ public class CustomerInfoForm extends JDialog{
                         street, city, country, buildingNumber,
                         email, password, branchNumber,
                         bankCode);
-                dataBase.setACCount(CustomerSSN,
+                dataBase.setAccount(CustomerSSN,
                         accountType, AccountBalance,
                         branchNumber, bankCode);
             } catch (SQLException ex) {

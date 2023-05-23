@@ -56,6 +56,8 @@ public class DataBase {
         return list ;
     }
 
+
+
     //==================================================================================================================
 
     public List<List<String>> showListPendingLoansTable(int ssn) throws SQLException {
@@ -232,14 +234,11 @@ public class DataBase {
                 "Email = '" + email + "', Password = '" + password + "', BranchNumber = " + branchNumber + ", BankCode = " + bankCode + " WHERE SSN = " + ssn;
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
-
-        connection.close();
-        statement.close();
     }
 
     //==================================================================================================================
 
-    public void setACCount(int ssn,
+    public void setAccount(int ssn,
                            String accountType, double accountBalance,
                            int branchNumber, int bankCode) throws SQLException {
 
@@ -327,6 +326,7 @@ public class DataBase {
         connection.close();
     }
 
+    //==================================================================================================================
     public void getStartedLoans(List<List<String>> info, int empSSN) throws SQLException {
         String sql = "Select CustomerSSN, LoanRequests.LoanNumber, LoanAmount, LoanType\n" +
                 "from LoanRequests, Loan\n" +
