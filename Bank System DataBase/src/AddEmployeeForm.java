@@ -21,7 +21,7 @@ public class AddEmployeeForm extends JDialog{
     {
         // Setting the attributes of the panel.
         super(parent);
-        setTitle("Add Customer");
+        setTitle("Add Employee");
         setContentPane(AddEmployeePanel);
         setMinimumSize(new Dimension(820, 820));
         setLocationRelativeTo(parent);
