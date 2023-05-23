@@ -79,7 +79,7 @@ public class AddEmployeeForm extends JDialog{
 
         cancelButton.addActionListener(e -> {   // Button to return to previous form.
             dispose();
-            new Home(null);
+            new AdminForm(null);
         });
 
     //==================================================================================================================

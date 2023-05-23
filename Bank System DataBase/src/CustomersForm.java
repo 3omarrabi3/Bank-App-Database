@@ -15,7 +15,7 @@ public class CustomersForm extends JDialog{
         super(parent);
         setTitle("Customers");
         setContentPane(CustomerPanel);
-        setMinimumSize(new Dimension(820, 420));
+        setMinimumSize(new Dimension(820, 480));
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
