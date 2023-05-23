@@ -21,8 +21,10 @@ public class CustomerInfoForm extends JDialog{
     private JTextField tfBranchNumber;
     private JTextField tfBankCode;
 
-    private int CustomerSSN;
-    private int EmployeeSSN;
+    private final int CustomerSSN;
+    private final int EmployeeSSN;
+
+    //==================================================================================================================
     public CustomerInfoForm(JFrame parent,int employeeSSN,int customerSSN,
                             String FirstName, String LastName,String Email , String Password, String Country , String City , String Street
             , String AccountType , int BankCode, int BranchNumber, int BuildingNumber , int Phone ,double Balance )  // Constructor.
@@ -55,6 +57,9 @@ public class CustomerInfoForm extends JDialog{
         EmployeeSSN = employeeSSN;
         CustomerSSN = customerSSN;
 
+    //==================================================================================================================
+
+        // Button to update the customer.
         updateCustomerButton.addActionListener(e ->{ if (LoginForm.checkWords(tfFirstName.getText()) &&
                 LoginForm.checkWords(tfLastName.getText()) &&
                 LoginForm.checkWords(tfCity.getText()) &&
@@ -101,10 +106,14 @@ public class CustomerInfoForm extends JDialog{
             }
         }});
 
+    //==================================================================================================================
 
+        // Button to return to previous panel.
         cancelButton.addActionListener(e -> {
             new EmployeeForm(null,EmployeeSSN);
             dispose();
         });
+
+    //==================================================================================================================
     }
 }
