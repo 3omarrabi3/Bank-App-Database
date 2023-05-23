@@ -67,7 +67,9 @@ public class DataBase {
                 "from LoanRequests ,Loan where LoanRequests.LoanNumber = Loan.LoanNumber\n" +
                 "and Status = 'Pending' and BranchNumber = (select BranchNumber from Employee\n" +
                 "                                                               where SSN = "+ssn+")\n" +
-                "and BankCode = (select BankCode from Employee where "+ssn+");";
+                "and BankCode = (select BankCode from Employee where "+ssn+")" +
+                "and LoanRequests.CustomerSSN = (select SSN from Customer " +
+                "where   Loan.BranchNumber = Customer.BranchNumber and Loan.BankCode = Customer.BankCode);";
 
         Statement statement = connection.createStatement() ;
         ResultSet resultSet = statement.executeQuery(sql) ;
