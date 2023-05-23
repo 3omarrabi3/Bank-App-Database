@@ -1,13 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class AddBankForm extends JDialog{
-    //add bank
 
-
+// Attributes of the form.
     private JPanel AddBankPanel;
     private JTextField tfBankName;
     private JTextField tfStreet;
@@ -17,20 +14,25 @@ public class AddBankForm extends JDialog{
     private JTextField tfCity;
     private JTextField tfBankCode;
 
+    //==================================================================================================================
+
     public AddBankForm(JFrame parent)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
-        setTitle("Admin");
+        setTitle("Add Bank");
         setContentPane(AddBankPanel);
         setMinimumSize(new Dimension(820, 820));
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setModal(true);
-        addBankButton.addActionListener(e -> {
+
+    //==================================================================================================================
+
+        addBankButton.addActionListener(e -> {  // Button to add the bank.
             {
-                DataBase dataBase = null;
+                DataBase dataBase;
                 try {
                     dataBase = new DataBase();
                 } catch (SQLException ex) {
@@ -72,18 +74,18 @@ public class AddBankForm extends JDialog{
                 }
 
             }
+
         });
 
 
+//==================================================================================================================
 
-        cancelButton.addActionListener(new ActionListener() {
-
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AdminForm(null);
-                dispose();
-            }
+        // Button to return to previous window.
+        cancelButton.addActionListener(e -> {
+            new AdminForm(null);
+            dispose();
         });
+    //==================================================================================================================
     }
+    //==================================================================================================================
 }
