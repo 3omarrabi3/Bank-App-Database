@@ -3,8 +3,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,7 +11,9 @@ public class LoansForm extends JDialog{
     private JTable LoansTable;
     private JButton cancelButton;
 
-    private int SSN;
+    private final int SSN;
+
+    //__________________________________________________________________________________________________________________
     public LoansForm(JFrame parent,int ssn)  // Constructor.
     {
         // Setting the attributes of the panel.
@@ -41,21 +41,27 @@ public class LoansForm extends JDialog{
 
         this.getLoans();
 
+    //__________________________________________________________________________________________________________________
 
-        cancelButton.addActionListener(e -> {
+        cancelButton.addActionListener(e -> {   // Button to return to previous panel.
             new EmployeeForm(null,SSN);
             dispose();
         });
+
+    //__________________________________________________________________________________________________________________
+
     }
 
+    //__________________________________________________________________________________________________________________
+
     private void getLoans() {
-        DataBase dataBase = null;
+        DataBase dataBase;
         try {
             dataBase = new DataBase();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        List<List<String>> list = null;
+        List<List<String>> list;
         try {
             list = dataBase.getLoans(SSN);
         } catch (SQLException e) {
@@ -64,8 +70,7 @@ public class LoansForm extends JDialog{
         createCustomerTable(list);
     }
 
-
-
+    //__________________________________________________________________________________________________________________
 
     private void createCustomerTable(List<List<String>> list) {
         // Create a custom table model
@@ -102,5 +107,5 @@ public class LoansForm extends JDialog{
         DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) tableHeader.getDefaultRenderer();
         headerRenderer.setHorizontalAlignment(JLabel.CENTER);
     }
-
+    //__________________________________________________________________________________________________________________
 }

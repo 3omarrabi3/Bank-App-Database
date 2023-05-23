@@ -41,9 +41,9 @@ public class LoginForm extends JDialog {    // Class for Login Form.
         setModal(true);
         type = Type;
 
-        //__________________________________________________________________________________________________________________
+        //______________________________________________________________________________________________________________
 
-        loginButton.addActionListener(e -> {    // Action li
+        loginButton.addActionListener(e -> {    // Button of Login.
             String email = tfEmail.getText();
             char[] passwordArr = pfPassword.getPassword();
             String password = new String(passwordArr);
@@ -59,9 +59,9 @@ public class LoginForm extends JDialog {    // Class for Login Form.
 
         });
 
-        // __________________________________________________________________________________________________________________
+        // _____________________________________________________________________________________________________________
 
-        cancelButton.addActionListener(e -> {
+        cancelButton.addActionListener(e -> {   // Button of returning to the home.
             new Home(null);
             dispose();
         });
@@ -103,7 +103,7 @@ public class LoginForm extends JDialog {    // Class for Login Form.
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    public static boolean checkDouble(String Amount) {
+    public static boolean checkDouble(String Amount) {  // checking that the string is double.
         if (!Amount.matches(doubleRegex)) {
             JOptionPane.showMessageDialog(null,
                     "Please,Enter valid Amount",
@@ -116,7 +116,7 @@ public class LoginForm extends JDialog {    // Class for Login Form.
     //__________________________________________________________________________________________________________________
 
 
-    public static boolean checkNumber(String number) {
+    public static boolean checkNumber(String number) {  // checking that the string is numeric.
         if (!number.matches(numbersRegex)) {
             JOptionPane.showMessageDialog(null,
                     "Please,Enter valid Data",
@@ -127,7 +127,8 @@ public class LoginForm extends JDialog {    // Class for Login Form.
         return true;
     }
 
-    public static boolean checkWords(String word) {
+    //__________________________________________________________________________________________________________________
+    public static boolean checkWords(String word) { // Check that the string contains only words.
         if (!word.matches(nameRegex)) {
             JOptionPane.showMessageDialog(null,
                     "Please,Enter valid Data",
@@ -138,7 +139,9 @@ public class LoginForm extends JDialog {    // Class for Login Form.
         return true;
     }
 
-    public static boolean checkEmail(String email) {
+    //__________________________________________________________________________________________________________________
+
+    public static boolean checkEmail(String email) {    // Check email.
         if (!email.matches(emailRegex)) {
             JOptionPane.showMessageDialog(null,
                     "Please,Enter valid e-mail address",
@@ -148,5 +151,5 @@ public class LoginForm extends JDialog {    // Class for Login Form.
         }
         return true;
     }
-
+    //__________________________________________________________________________________________________________________
 }
