@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AdminForm extends  JDialog{
     private JPanel AdminPanel;
@@ -9,6 +7,8 @@ public class AdminForm extends  JDialog{
     private JButton addBranchButton;
     private JButton LogOutButton;
     private JButton addEmployeeButton;
+
+    //==================================================================================================================
 
     public AdminForm(JFrame parent)  // Constructor.
     {
@@ -22,6 +22,9 @@ public class AdminForm extends  JDialog{
         setVisible(true);
         setModal(true);
 
+    //==================================================================================================================
+
+        // Button to add new bank.
         addBankButton.addActionListener(e -> {
 
             new AddBankForm(null);
@@ -29,25 +32,33 @@ public class AdminForm extends  JDialog{
 
         });
 
+    //==================================================================================================================
+
+        // Button to add new branch.
         addBranchButton.addActionListener(e -> {
 
             new AddBranch(null);
             dispose();
 
         });
-        LogOutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Home(null);
-                dispose();
-            }
+
+    //==================================================================================================================
+
+        // Button to add new employee.
+        addEmployeeButton.addActionListener(e -> {
+            new AddEmployeeForm (null);
+            dispose();
         });
-        addEmployeeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddEmployeeForm (null);
-                dispose();
-            }
+
+    //==================================================================================================================
+
+        // Button to return to the home.
+        LogOutButton.addActionListener(e -> {
+            new Home(null);
+            dispose();
         });
+
+    //==================================================================================================================
+
     }
 }
