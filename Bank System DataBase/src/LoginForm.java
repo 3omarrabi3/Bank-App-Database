@@ -110,16 +110,6 @@ public class LoginForm extends JDialog {
     }
     //__________________________________________________________________________________________________________________
 
-    public static boolean strongPassword(String password) {
-        if (!password.matches(passwordRegex)) {
-            JOptionPane.showMessageDialog(null,
-                    "Please,Choose a Strong Password",
-                    "Weak password",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
 
     public static boolean checkNumber(String number) {
         if (!number.matches(numbersRegex)) {
@@ -154,14 +144,4 @@ public class LoginForm extends JDialog {
         return true;
     }
 
-    public static boolean checkPhoneNumber(String number) {
-        if (!number.matches(phoneNumberRegex)) {
-            JOptionPane.showMessageDialog(null,
-                    "Please,Enter valid phone number",
-                    "Invalid phone number",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
 }

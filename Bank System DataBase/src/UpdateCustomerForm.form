@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="dfc7" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="fedc8" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="7995a" class="javax.swing.JTextField" binding="tfSSN">
+          <component id="fa4a5" class="javax.swing.JTextField" binding="tfSSN">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="362" height="30"/>
@@ -27,12 +27,12 @@
               <text value=""/>
             </properties>
           </component>
-          <vspacer id="18750">
+          <vspacer id="da8bd">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="282d0" class="javax.swing.JButton" binding="getCustomerButton" default-binding="true">
+          <component id="6ab04" class="javax.swing.JButton" binding="getCustomerButton" default-binding="true">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -43,9 +43,9 @@
               <text value="Get Customer"/>
             </properties>
           </component>
-          <component id="adeb9" class="javax.swing.JButton" binding="cancelButton" default-binding="true">
+          <component id="f35f2" class="javax.swing.JButton" binding="cancelButton" default-binding="true">
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-65536"/>
@@ -54,7 +54,7 @@
               <text value="Cancel"/>
             </properties>
           </component>
-          <component id="99b68" class="javax.swing.JLabel">
+          <component id="687b4" class="javax.swing.JLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="362" height="16"/>
@@ -63,6 +63,17 @@
             <properties>
               <font name="Segoe Print" size="18" style="1"/>
               <text value="SSN :"/>
+            </properties>
+          </component>
+          <component id="515b3" class="javax.swing.JButton" binding="deleteCustomerButton">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-65536"/>
+              <font name="Segoe Print" size="18" style="1"/>
+              <foreground color="-1"/>
+              <text value="Delete Customer"/>
             </properties>
           </component>
         </children>

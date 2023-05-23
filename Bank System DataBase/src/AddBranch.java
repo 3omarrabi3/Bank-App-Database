@@ -69,7 +69,6 @@ public class AddBranch extends JDialog
                         catch (SQLException ex) {
                             throw new RuntimeException(ex);
                         }
-//                        }
 
                 }
 

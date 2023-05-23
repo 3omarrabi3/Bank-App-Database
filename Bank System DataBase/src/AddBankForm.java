@@ -71,9 +71,6 @@ public class AddBankForm extends JDialog{
                     }
                 }
 
-                // function to check if the bank is already in the table to be added.
-                dispose();
-                new AdminForm(null);
             }
         });
 

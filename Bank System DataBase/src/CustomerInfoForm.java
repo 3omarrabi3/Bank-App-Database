@@ -24,7 +24,7 @@ public class CustomerInfoForm extends JDialog{
     private int CustomerSSN;
     private int EmployeeSSN;
     public CustomerInfoForm(JFrame parent,int employeeSSN,int customerSSN,
-    String FirstName, String LastName,String Email , String Password, String Country , String City , String Street
+                            String FirstName, String LastName,String Email , String Password, String Country , String City , String Street
             , String AccountType , int BankCode, int BranchNumber, int BuildingNumber , int Phone ,double Balance )  // Constructor.
     {
         // Setting the attributes of the panel.
@@ -56,51 +56,50 @@ public class CustomerInfoForm extends JDialog{
         CustomerSSN = customerSSN;
 
         updateCustomerButton.addActionListener(e ->{ if (LoginForm.checkWords(tfFirstName.getText()) &&
-            LoginForm.strongPassword(tfPassword.getText()) &&
-            LoginForm.checkWords(tfLastName.getText()) &&
-            LoginForm.checkWords(tfCity.getText()) &&
-            LoginForm.checkWords(tfCountry.getText()) &&
-            LoginForm.checkNumber(tfPhone.getText()) &&
-            LoginForm.checkEmail(tfEmail.getText()) &&
-            LoginForm.checkNumber(tfBranchNumber.getText()) &&
-            LoginForm.checkNumber(tfBankCode.getText()) &&
-            LoginForm.checkNumber(tfAccountBalance.getText())) {
+                LoginForm.checkWords(tfLastName.getText()) &&
+                LoginForm.checkWords(tfCity.getText()) &&
+                LoginForm.checkWords(tfCountry.getText()) &&
+                LoginForm.checkNumber(tfPhone.getText()) &&
+                LoginForm.checkEmail(tfEmail.getText()) &&
+                LoginForm.checkNumber(tfBranchNumber.getText()) &&
+                LoginForm.checkNumber(tfBankCode.getText()) &&
+                LoginForm.checkNumber(tfAccountBalance.getText())) {
 
-        String firstName = tfFirstName.getText();
-        String lastName = tfLastName.getText();
-        int phone = Integer.parseInt(tfPhone.getText());
-        String street = tfStreet.getText();
-        String city = tfCity.getText();
-        String country = tfCountry.getText();
-        int buildingNumber = Integer.parseInt(tfBuildingNumber.getText());
-        String email = tfEmail.getText();
-        String password = tfPassword.getText();
-        int branchNumber = Integer.parseInt(tfBranchNumber.getText());
-        int bankCode = Integer.parseInt(tfBankCode.getText());
-        String accountType = tfAccountType.getText();
-        double AccountBalance = Double.parseDouble(tfAccountBalance.getText());
+            String firstName = tfFirstName.getText();
+            String lastName = tfLastName.getText();
+            int phone = Integer.parseInt(tfPhone.getText());
+            String street = tfStreet.getText();
+            String city = tfCity.getText();
+            String country = tfCountry.getText();
+            int buildingNumber = Integer.parseInt(tfBuildingNumber.getText());
+            String email = tfEmail.getText();
+            String password = tfPassword.getText();
+            int branchNumber = Integer.parseInt(tfBranchNumber.getText());
+            int bankCode = Integer.parseInt(tfBankCode.getText());
+            String accountType = tfAccountType.getText();
+            double AccountBalance = Double.parseDouble(tfAccountBalance.getText());
 
-        JOptionPane.showMessageDialog(CustomerInfoForm.this,
-                "Customer and his account has been Updated successfully",
-                "Successful Operation",
-                JOptionPane.INFORMATION_MESSAGE);
-        new EmployeeForm(null, EmployeeSSN);
-        dispose();
+            JOptionPane.showMessageDialog(CustomerInfoForm.this,
+                    "Customer and his account has been Updated successfully",
+                    "Successful Operation",
+                    JOptionPane.INFORMATION_MESSAGE);
+            new EmployeeForm(null, EmployeeSSN);
+            dispose();
 
-        try {
-            DataBase dataBase = new DataBase();
-            dataBase.setCustomer(
-                    CustomerSSN, firstName, lastName, phone,
-                    street, city, country, buildingNumber,
-                    email, password, branchNumber,
-                    bankCode);
-            dataBase.setACCount(CustomerSSN,
-                    accountType, AccountBalance,
-                    branchNumber, bankCode);
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-    }});
+            try {
+                DataBase dataBase = new DataBase();
+                dataBase.setCustomer(
+                        CustomerSSN, firstName, lastName, phone,
+                        street, city, country, buildingNumber,
+                        email, password, branchNumber,
+                        bankCode);
+                dataBase.setACCount(CustomerSSN,
+                        accountType, AccountBalance,
+                        branchNumber, bankCode);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        }});
 
 
         cancelButton.addActionListener(e -> {

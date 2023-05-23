@@ -1,17 +1,20 @@
 import javax.swing.*;
 import java.sql.*;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class DataBase {
     Connection connection;
 
+    //==================================================================================================================
+
     public DataBase() throws SQLException {
         String currentDir = java.lang.System.getProperty("user.dir");
         String url = "jdbc:sqlite:" + currentDir + "\\identifier.sqlite";
         connection = DriverManager.getConnection(url);
     }
+
+    //==================================================================================================================
 
     public List<List<String>> showList(int employeeSSN) throws SQLException {
         String sql = "SELECT DISTINCT\n" +
@@ -53,6 +56,8 @@ public class DataBase {
         return list ;
     }
 
+    //==================================================================================================================
+
     public List<List<String>> showListPendingLoansTable(int ssn) throws SQLException {
         String sql = "Select LoanRequests.CustomerSSN, LoanRequests.LoanNumber, LoanRequests.Status\n" +
                 "from LoanRequests ,Loan where LoanRequests.LoanNumber = Loan.LoanNumber\n" +
@@ -76,6 +81,9 @@ public class DataBase {
         statement.close();
         return list ;
     }
+
+    //==================================================================================================================
+
     public void addAccount(int accountNumber, int ssn,
                            String accountType, double accountBalance,
                            int branchNumber, int bankCode) throws SQLException {
@@ -89,6 +97,8 @@ public class DataBase {
         statement.close();
     }
 
+    //==================================================================================================================
+
     public void addCustomer(int ssn, String firstName, String lastName, int phone,
                             String street, String city, String country, int buildingNumber,
                             String email, String password, int branchNumber,
@@ -101,6 +111,7 @@ public class DataBase {
         statement.executeUpdate(sql);
     }
 
+    //==================================================================================================================
     public boolean addBranch(int branchNumber, int bankCode, String name, String street, String city, String country) throws SQLException {
         String selectQuery = "SELECT * FROM Branch WHERE BranchNumber = " + branchNumber + " AND BankCode = " + bankCode;
         Statement selectStatement = connection.createStatement();
@@ -132,6 +143,8 @@ public class DataBase {
 
     }
 
+    //==================================================================================================================
+
     public boolean Login(String email, String password, String Table)
             throws SQLException {
         Statement statement = connection.createStatement();
@@ -147,7 +160,13 @@ public class DataBase {
                     "Welcome, " + Name,
                     "Successful Login!",
                     JOptionPane.INFORMATION_MESSAGE);
-            new EmployeeForm(null, SSN);
+            if(Table.equals("Employee"))
+            {
+                new EmployeeForm(null, SSN);
+            }
+            else {
+                new CustomersForm(null,SSN);
+            }
 
             connection.close();
             statement.close();
@@ -155,6 +174,8 @@ public class DataBase {
         }
         return false;
     }
+
+    //==================================================================================================================
 
     public boolean UpdateCustomer(int employeeSSN, int CustomerSSN)
             throws SQLException {
@@ -198,6 +219,8 @@ public class DataBase {
 
     }
 
+    //==================================================================================================================
+
     public void setCustomer(
             int ssn, String firstName, String lastName, int phone,
             String street, String city, String country, int buildingNumber,
@@ -214,6 +237,8 @@ public class DataBase {
         statement.close();
     }
 
+    //==================================================================================================================
+
     public void setACCount(int ssn,
                            String accountType, double accountBalance,
                            int branchNumber, int bankCode) throws SQLException {
@@ -227,6 +252,8 @@ public class DataBase {
         connection.close();
         statement.close();
     }
+
+    //==================================================================================================================
 
     public Boolean addBank(int code, String name, String Street, String City, String Country) throws SQLException {
         String selectQuery = "SELECT * FROM Bank WHERE Code = " + code;
@@ -250,6 +277,9 @@ public class DataBase {
             return true;
         }
     }
+
+    //==================================================================================================================
+
     public List<List<String>> getLoans(int ss) throws SQLException {
         String selectQuery = "select Loan.LoanNumber,Loan.BranchNumber ,Loan.BankCode\n" +
                 "     , Loan.LoanAmount, Loan.LoanType, Employee.SSN\n" +
@@ -283,6 +313,9 @@ public class DataBase {
         return list;
 
     }
+
+    //==================================================================================================================
+
     public void updateStateToPayed(String customerSSN, String loanNumber) throws SQLException {
         String sql = "update LoanRequests set Status = 'Payed' " +
                 "where CustomerSSN = " + customerSSN + " and LoanNumber = " + loanNumber + ";";
@@ -320,5 +353,49 @@ public class DataBase {
         statement.close() ;
         connection.close();
     }
+
+    //==================================================================================================================
+
+    public boolean addEmployee(int SSN,double salary,String firstName,String lastName,String email,String password,int branchNumber,int bankCode) throws SQLException {
+        String selectQuery = "SELECT * FROM Employee WHERE SSN = " + SSN;
+        Statement selectStatement = connection.createStatement();
+        ResultSet resultSet = selectStatement.executeQuery(selectQuery);
+
+        if (resultSet.next()) {
+            resultSet.close();
+            selectStatement.close();
+            return false;
+        }
+
+        selectQuery = "SELECT * FROM Branch WHERE BranchNumber = " + branchNumber + " AND BankCode = " + bankCode;
+        selectStatement = connection.createStatement();
+        resultSet = selectStatement.executeQuery(selectQuery);
+
+        if(!resultSet.next()) {
+            resultSet.close();
+            selectStatement.close();
+            return false;
+        }
+        String insertQuery = "INSERT INTO Employee (SSN, Salary, FName, LName, Email,Password,BranchNumber,BankCode) VALUES ("
+                + SSN + ", "
+                + salary + ", '"
+                + firstName + "', '"
+                + lastName + "', '"
+                + email + "', '"
+                + password + "', '"
+                + branchNumber + "', '"
+                + bankCode + "')";
+        Statement insertStatement = connection.createStatement();
+        int rowsAffected = insertStatement.executeUpdate(insertQuery);
+        insertStatement.close();
+
+        resultSet.close();
+        selectStatement.close();
+
+        return rowsAffected > 0;
+    }
+
+    //==================================================================================================================
+
 }
 

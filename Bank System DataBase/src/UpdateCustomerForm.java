@@ -7,6 +7,7 @@ public class UpdateCustomerForm extends JDialog{
     private JTextField tfSSN;
     private JButton getCustomerButton;
     private JButton cancelButton;
+    private JButton deleteCustomerButton;
 
     private int SSN;
     public UpdateCustomerForm(JFrame parent, int ssn)     // constructor that sets the suitable attributes for the form.

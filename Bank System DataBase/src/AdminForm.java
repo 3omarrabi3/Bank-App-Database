@@ -8,6 +8,7 @@ public class AdminForm extends  JDialog{
     private JButton addBankButton;
     private JButton addBranchButton;
     private JButton LogOutButton;
+    private JButton addEmployeeButton;
 
     public AdminForm(JFrame parent)  // Constructor.
     {
@@ -38,6 +39,13 @@ public class AdminForm extends  JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Home(null);
+                dispose();
+            }
+        });
+        addEmployeeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AddEmployeeForm (null);
                 dispose();
             }
         });
