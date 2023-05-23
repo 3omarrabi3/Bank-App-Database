@@ -510,5 +510,155 @@ public class DataBase {
         selectStatement.close();
         return true;
     }
+    //==================================================================================================================
+
+    public StringBuilder getData() throws SQLException {
+        StringBuilder data = new StringBuilder();
+
+        {
+            String sql = """
+                    SELECT count(SSN)
+                    from Customer ;
+                    """;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            data.append("There are ").append(resultSet.getInt("count(SSN)")).append(" Customers");
+        }
+
+        {
+            String sql = """
+                        select DISTINCT SSN, FName, LName
+                        from Customer ;
+                    """ ;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            int counter = 1 ;
+            while (resultSet.next()){
+                data.append("\n\tCustomer #").append(counter++).append(" SSN -> ").append(resultSet.getString("SSN")).
+                        append(" & Name -> ").append(resultSet.getString("FName")).append(resultSet.getString("LName"));
+            }
+        }
+
+        {
+            data.append("\n\nThe customers who make a loans") ;
+
+            String sql = """
+                        select DISTINCT SSN, FName, LName
+                        from Customer
+                        where SSN in (select CustomerSSN from LoanRequests) ;
+                    """;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            int counter = 1 ;
+            while (resultSet.next()){
+                data.append("\n\tCustomer #").append(counter++).append(" SSN -> ").append(resultSet.getString("SSN")).
+                        append(" & Name -> ").append(resultSet.getString("FName")).append(resultSet.getString("LName"));
+            }
+        }
+
+        {
+            String sql = """
+                    SELECT count(SSN)
+                    from Employee ;
+                    """;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            data.append("\n\nThere are ").append(resultSet.getInt("count(SSN)")).append(" Employees");
+        }
+
+        {
+            String sql = """
+                        select DISTINCT SSN, FName, LName
+                        from Employee ;
+                    """;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            int counter = 1 ;
+            while (resultSet.next()){
+                data.append("\n\tEmployee #").append(counter++).append(" SSN -> ").append(resultSet.getString("SSN")).
+                        append(" & Name -> ").append(resultSet.getString("FName")).append(resultSet.getString("LName"));
+            }
+        }
+
+        {
+            data.append("\n") ;
+
+            String sql = """
+                    SELECT count(Code)
+                    from Bank ;
+                    """;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            data.append("\nThere are ").append(resultSet.getInt("count(Code)")).append(" Banks");
+        }
+
+        {
+            String sql = """
+                        SELECT Bank.Name, COUNT(Branch.BranchNumber) AS NumBranches
+                        FROM Bank
+                        LEFT JOIN Branch ON Bank.Code = Branch.BankCode
+                        GROUP BY Bank.Code, Bank.Name;
+                    """;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()){
+                data.append("\n\tBank ").append(resultSet.getString("Name")).append(" has ");
+                data.append(resultSet.getString("NumBranches")) ;
+            }
+        }
+
+        {
+            String sql = """
+                        SELECT Bank.Name, COUNT(Branch.BranchNumber) AS NumBranches
+                        FROM Bank
+                        LEFT JOIN Branch ON Bank.Code = Branch.BankCode
+                        GROUP BY Bank.Code, Bank.Name;
+                    """;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()){
+                data.append("\n\tBank ").append(resultSet.getString("Name")).append(" has ");
+                data.append(resultSet.getString("NumBranches")) ;
+            }
+        }
+
+        {
+            data.append("\n\nThe Loans in the banks") ;
+
+            String sql = """
+                     select LoanType, LoanAmount, Bank.Name as BankName, Branch.Name as BranchName
+                     from Loan, Bank, Branch
+                     where Loan.BankCode = Bank.Code
+                     and Loan.BranchNumber = Branch.BranchNumber ;
+                    """;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            int Counter = 1 ;
+            while (resultSet.next()){
+                data.append("\n\tLoan# ").append(Counter++).append(" Loan Type -> ").
+                        append(resultSet.getString("LoanType")).
+                        append(" & LoanAmount -> ").append(resultSet.getDouble("LoanAmount")).
+                        append(" & Bank Name ").append(resultSet.getString("BankName")).
+                        append(" & -> Branch Name -> ").append(resultSet.getString("BranchName"));
+            }
+        }
+
+        return data ;
+    }
 }
 

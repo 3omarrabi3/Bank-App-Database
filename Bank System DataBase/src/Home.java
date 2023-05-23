@@ -9,6 +9,8 @@ public class Home extends JDialog{
     private JButton employeeButton; // Button that takes the user to the employee login.
     private JPanel HomePanel;   // The current panel.
     private JButton customerButton;
+    private JButton exitButton;
+    private JButton showDataButton;
 
     //__________________________________________________________________________________________________________________
 
@@ -43,6 +45,13 @@ public class Home extends JDialog{
             new LoginForm(null,"Customer"); // Gets the user to the employee login and passes false to the admin attribute.
             dispose();
         });
+
+        exitButton.addActionListener(e -> {
+            dispose() ;
+        });
+
+        showDataButton.addActionListener(e ->
+                new ShowDataForm(null));
     }
 
     //__________________________________________________________________________________________________________________
