@@ -45,7 +45,7 @@
             </constraints>
             <properties>
               <font name="Segoe Print" size="14" style="1"/>
-              <text value="Please Ebter Loan Number you want to start paying :"/>
+              <text value="Please Enter Loan Number you want to start paying :"/>
             </properties>
           </component>
           <vspacer id="8ea69">

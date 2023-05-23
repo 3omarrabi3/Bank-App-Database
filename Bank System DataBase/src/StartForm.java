@@ -31,7 +31,7 @@ public class StartForm extends JDialog {
 
         SSN = ssn;
 
-    //__________________________________________________________________________________________________________________
+        //__________________________________________________________________________________________________________________
 
         try {
             this.showAcceptedLoanList();
@@ -41,20 +41,40 @@ public class StartForm extends JDialog {
         }
         startButton.addActionListener(e -> {
             String loanNum = textField1.getText();
-            if (LoginForm.checkNumber(textField1.getText())){
-                DataBase dataBase;
-                try {
-                    dataBase =new DataBase();
-                    dataBase.updateLoanstatu(ssn,loanNum);
+            DataBase dataBase;
+            if (loanNum == null) {
+                JOptionPane.showMessageDialog(null,
+                        "You entered invalid inputs",
+                        "Invalid inputs",
+                        JOptionPane.INFORMATION_MESSAGE);
 
+            }
+            else if (LoginForm.checkNumber(textField1.getText())){
+                try {
+                    dataBase = new DataBase();
+                    if (dataBase.checkExistanceLoanNumber(Integer.parseInt(loanNum))) {
+                        dataBase.updateLoanstatu(ssn,loanNum);
+                        JOptionPane.showMessageDialog(null,
+                                "the loan has been started!",
+                                "successful start",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        new CustomersForm(null, SSN);
+                        dispose();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null,
+                                "the loan number is not found",
+                                "Invalid inputs",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
+
             }
-            new CustomersForm(null, SSN);
-            dispose();
+
         });
-    //__________________________________________________________________________________________________________________
+        //__________________________________________________________________________________________________________________
 
         cancelButton.addActionListener(e -> {
             new CustomersForm(null, SSN);

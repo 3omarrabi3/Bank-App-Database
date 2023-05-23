@@ -140,6 +140,17 @@ public class DataBase {
             return false;
         }
 
+        selectQuery = "SELECT * FROM Bank WHERE Code = " + bankCode;
+        selectStatement = connection.createStatement();
+        resultSet = selectStatement.executeQuery(selectQuery);
+
+        if (!resultSet.next()) {
+            // Bank did not exist
+            resultSet.close();
+            selectStatement.close();
+            return false;
+        }
+
         else {
             String insertQuery = "INSERT INTO Branch (BranchNumber, BankCode, Name, Street, City, Country) VALUES ("
                     + branchNumber + ", "
@@ -371,7 +382,7 @@ public class DataBase {
     public void updateStateToPayed(String customerSSN, String loanNumber) throws SQLException {
         // Status of loan.
 
-        String sql = "update LoanRequests set Status = 'Payed' " +
+        String sql = "update LoanRequests set Status = 'paid' " +
                 "where CustomerSSN = " + customerSSN + " and LoanNumber = " + loanNumber + ";";
 
         Statement statement = connection.createStatement();
@@ -509,6 +520,9 @@ public class DataBase {
         String sql = "insert into LoanRequests values(" + ssn + "," + loanNum + ", 'Pending' )";
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
+
+        statement.close();
+        connection.close();
     }
 
     //==================================================================================================================
@@ -789,6 +803,15 @@ public class DataBase {
         return rowsAffected > 0;
     }
 
+    //==================================================================================================================
+
+    public boolean checkExistanceLoanNumber(int x) throws SQLException {
+        // function to check of the existence of the branch and the bank.
+        String selectQuery = "SELECT * FROM Loan WHERE LoanNumber = " + x ;
+        Statement selectStatement = connection.createStatement();
+        ResultSet resultSet = selectStatement.executeQuery(selectQuery);
+        return resultSet.next();
+    }
     //==================================================================================================================
 
 }
