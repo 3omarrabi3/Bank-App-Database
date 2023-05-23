@@ -40,8 +40,8 @@ public class AddCustomerForm extends JDialog{
         SSN =ssn;
 
         addCustomerButton.addActionListener(e -> {
+
                 if (LoginForm.checkWords(tfFirstName.getText()) &&
-                LoginForm.checkWords(new String(pfPassword.getPassword())) &&
                         LoginForm.checkWords(tfLastName.getText()) &&
                         LoginForm.checkWords(tfCity.getText()) &&
                         LoginForm.checkWords(tfCountry.getText()) &&
@@ -51,7 +51,7 @@ public class AddCustomerForm extends JDialog{
                         LoginForm.checkNumber(tfBranchNumber.getText()) &&
                         LoginForm.checkNumber(tfAccountNumber.getText()) &&
                         LoginForm.checkNumber(tfBankCode.getText()) &&
-                        LoginForm.checkNumber(tfAccountBalance.getText())) {
+                        LoginForm.checkDouble(tfAccountBalance.getText())) {
 
                     int SSN = Integer.parseInt(tfSSN.getText());
                     String firstName = tfFirstName.getText();
@@ -69,6 +69,26 @@ public class AddCustomerForm extends JDialog{
                     int AccountNumber = Integer.parseInt(tfAccountNumber.getText());
                     double AccountBalance = Double.parseDouble(tfAccountBalance.getText());
 
+                    DataBase  dataBase = null;
+                    try {
+                        dataBase = new DataBase();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    try {
+                        if(!(dataBase.checkExistanceAddCustomer(branchNumber, bankCode)))
+                        {
+                            JOptionPane.showMessageDialog(AddCustomerForm.this,
+                                    "This data doesn't exist",
+                                    "Login Failed!",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+
                     JOptionPane.showMessageDialog(AddCustomerForm.this,
                             "Customer and his account has been Added successfully",
                             "Successful Operation",
@@ -78,7 +98,7 @@ public class AddCustomerForm extends JDialog{
 
 
                     try {
-                        DataBase  dataBase = new DataBase();
+
                         dataBase.addCustomer(SSN, firstName, lastName, phone,
                                 street, city, country, buildingNumber,
                                 email, password, branchNumber, bankCode);

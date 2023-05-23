@@ -660,5 +660,14 @@ public class DataBase {
 
         return data ;
     }
+    public boolean checkExistanceAddCustomer(int x, int y) throws SQLException {
+        String selectQuery = "SELECT * FROM Branch WHERE BranchNumber = " + x + " AND BankCode = " + y;
+        Statement selectStatement = connection.createStatement();
+        ResultSet resultSet = selectStatement.executeQuery(selectQuery);
+        if (!resultSet.next()) {
+            return false;
+        }
+        return true;
+    }
 }
 
