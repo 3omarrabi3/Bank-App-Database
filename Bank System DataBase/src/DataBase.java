@@ -495,5 +495,20 @@ public class DataBase {
         return list;
 
     }
+    //==================================================================================================================
+    public boolean checkExistance(int x, int y) throws SQLException {
+        String selectQuery = "SELECT * FROM LoanRequests WHERE LoanNumber = " + y + " AND CustomerSSN = " + x;
+        Statement selectStatement = connection.createStatement();
+        ResultSet resultSet = selectStatement.executeQuery(selectQuery);
+        if (!resultSet.next()) {
+            connection.close();
+            resultSet.close();
+            selectStatement.close();
+            return false;
+        }
+        connection.close();
+        selectStatement.close();
+        return true;
+    }
 }
 

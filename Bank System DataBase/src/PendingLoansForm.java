@@ -16,12 +16,21 @@ public class PendingLoansForm extends JDialog{
 
     private int SSN;
 
-    private void Update(String Str)
-    {
+    private void Update(String Str) throws SQLException {
+
         if(LoginForm.checkNumber(textField1.getText())&& LoginForm.checkNumber(textField2.getText())) {
 
             int CustomerSSN = Integer.parseInt(textField1.getText());
             int  LoanNumber= Integer.parseInt(textField2.getText());
+            DataBase dataBase = new DataBase();
+            if(!(dataBase.checkExistance(CustomerSSN, LoanNumber)))
+            {
+                JOptionPane.showMessageDialog(PendingLoansForm.this,
+                        "This data doesn't exist",
+                        "Login Failed!",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             try {
                 String currentDir = java.lang.System.getProperty("user.dir");
                 String url = "jdbc:sqlite:" + currentDir + "\\identifier.sqlite";
@@ -70,9 +79,21 @@ public class PendingLoansForm extends JDialog{
         });
 
 
-        acceptButton.addActionListener(e -> Update("Accepted"));
+        acceptButton.addActionListener(e -> {
+            try {
+                Update("Accepted");
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
-        rejectButton.addActionListener(e -> Update("Rejected"));
+        rejectButton.addActionListener(e -> {
+            try {
+                Update("Rejected");
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
     }
 
