@@ -7,11 +7,12 @@ public class ShowDataForm extends JDialog{
     private JTextPane textPane;
     private JButton backButton;
 
+    //__________________________________________________________________________________________________________________
     public ShowDataForm(JFrame parent)  // Constructor.
     {
         // Setting the attributes of the panel.
         super(parent);
-        setTitle("BankSystem");
+        setTitle("Show Data");
         setContentPane(thisPanel);
         setMinimumSize(new Dimension(1200, 800));
         setLocationRelativeTo(parent);
@@ -30,8 +31,9 @@ public class ShowDataForm extends JDialog{
         }
 
         //______________________________________________________________________________________________________________
-        backButton.addActionListener(e ->
-                dispose()
-        );
+        backButton.addActionListener(e -> {
+            dispose();
+            new Home (null);
+        });
     }
 }
