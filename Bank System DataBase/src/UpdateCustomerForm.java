@@ -9,11 +9,11 @@ public class UpdateCustomerForm extends JDialog{
     private JButton cancelButton;
     private JButton deleteCustomerButton;
 
-    private int SSN;
+    private final int SSN;
     public UpdateCustomerForm(JFrame parent, int ssn)     // constructor that sets the suitable attributes for the form.
     {
         super(parent);
-        setTitle("Login");
+        setTitle("Update Customer");
         setContentPane(UpdateCustomerPanel);
         setMinimumSize(new Dimension(820,440));
         setLocationRelativeTo(parent);
@@ -22,11 +22,11 @@ public class UpdateCustomerForm extends JDialog{
         setModal(true);
 
         SSN = ssn;
-        //__________________________________________________________________________________________________________________
+        //_______________________________________________________________________________________________________________
 
         getCustomerButton.addActionListener(e -> {
             int customerSSN =Integer.parseInt( tfSSN.getText());
-            DataBase dataBase = null;
+            DataBase dataBase;
             try {
                 dataBase = new DataBase ();
             } catch (SQLException ex) {
@@ -44,7 +44,7 @@ public class UpdateCustomerForm extends JDialog{
 
         deleteCustomerButton.addActionListener(e->{
             int customerSSN =Integer.parseInt( tfSSN.getText());
-            DataBase dataBase = null;
+            DataBase dataBase;
             try {
                 dataBase = new DataBase ();
             } catch (SQLException ex) {
@@ -60,6 +60,7 @@ public class UpdateCustomerForm extends JDialog{
             }
         });
 
+        //______________________________________________________________________________________________________________
         cancelButton.addActionListener(e -> {
             new EmployeeForm(null,SSN);
             dispose();
